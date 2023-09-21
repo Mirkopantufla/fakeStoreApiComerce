@@ -16,12 +16,12 @@ const Products = async () => {
             </div>
             <div className='col-span-12 flex flex-col justify-center items-center'>
                 <h1>Categories</h1>
-                <ul className='flex'>
+                <ul className='flex flex-wrap justify-center'>
                     {
                         categories.map((cat) => {
                             return (
-                                <li className='mx-4'>
-                                    {cat}
+                                <li className='mx-4 my-2'>
+                                    <button className='btn btn-primary h-9'>{cat}</button>
                                 </li>
                             )
                         })
@@ -31,7 +31,7 @@ const Products = async () => {
             {
                 products.map((producto) => {
                     return (
-                        <div className='col-span-4 flex justify-center'>
+                        <div className='lg:col-span-4 md:col-span-6 col-start-3 col-span-8 flex justify-center'>
                             <ProductCard product={producto} />
                         </div>
                     )
