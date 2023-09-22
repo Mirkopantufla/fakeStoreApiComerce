@@ -1,6 +1,10 @@
 import React from 'react'
 import { ProductCard } from '../components/ProductCard'
 
+export const metadata = {
+    title: "Productos"
+}
+
 const Products = async () => {
 
     const responseProducts = await fetch('https://fakestoreapi.com/products')
@@ -14,7 +18,7 @@ const Products = async () => {
             <div className='col-span-12 text-center mt-2'>
                 <h1 className='text-6xl'>Products Page</h1>
             </div>
-            <div className='col-span-12 flex flex-col justify-center items-center'>
+            <div className='col-span-12 flex flex-col justify-center items-center border-2 border-primary'>
                 <h1>Categories</h1>
                 <ul className='flex flex-wrap justify-center'>
                     {

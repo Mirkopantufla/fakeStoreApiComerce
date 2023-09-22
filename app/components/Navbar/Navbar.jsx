@@ -1,5 +1,10 @@
 import Link from 'next/link'
 import React from 'react'
+import ClientButton from './ClientButton'
+
+const changeHTMLTheme = (e) => {
+
+}
 
 const Navbar = () => {
     return (
@@ -10,6 +15,7 @@ const Navbar = () => {
             <div className='flex-1'>
                 <Link href="/products">Productos</Link>
             </div>
+            <ClientButton />
             <div className="flex-none">
                 <div className="dropdown dropdown-end">
                     <label tabIndex={0} className="btn btn-ghost btn-circle">
