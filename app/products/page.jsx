@@ -1,6 +1,9 @@
 import React from 'react'
 import { ProductCard } from '../components/ProductCard'
+import Carrousel from '../components/Products/Carrousel'
 
+
+//Pagina de Productos
 export const metadata = {
     title: "Productos"
 }
@@ -14,8 +17,8 @@ const Products = async () => {
     const categories = await responseCategories.json()
 
     return (
-        <main className='grid grid-cols-12 gap-4'>
-            <div className='col-span-12 text-center mt-2'>
+        <main>
+            <div className='col-span-12 text-center my-2'>
                 <h1 className='text-6xl'>Products Page</h1>
             </div>
             <div className='col-span-12 flex flex-col justify-center items-center border-2 border-primary'>
@@ -32,15 +35,18 @@ const Products = async () => {
                     }
                 </ul>
             </div>
-            {
-                products.map((producto) => {
-                    return (
-                        <div className='lg:col-span-4 md:col-span-6 col-start-3 col-span-8 flex justify-center'>
-                            <ProductCard product={producto} />
-                        </div>
-                    )
-                })
-            }
+            <Carrousel />
+            <div className='flex flex-wrap justify-center p-7 gap-4'>
+                {
+                    products.map((producto) => {
+                        return (
+                            <div className='lg:col-span-4 md:col-span-6 col-start-3 col-span-8 flex justify-center'>
+                                <ProductCard product={producto} />
+                            </div>
+                        )
+                    })
+                }
+            </div>
         </main>
     )
 }

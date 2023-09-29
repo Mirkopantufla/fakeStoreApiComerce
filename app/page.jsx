@@ -1,5 +1,6 @@
 import Image from 'next/image'
 
+// Pagina de Inicio
 export default function Home() {
   return (
     <main className='grid-cols-12'>
