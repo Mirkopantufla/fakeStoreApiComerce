@@ -21,8 +21,8 @@ const Products = async () => {
             <div className='col-span-12 text-center my-2'>
                 <h1 className='text-6xl'>Products Page</h1>
             </div>
-            <div className='col-span-12 flex flex-col justify-center items-center border-2 border-primary'>
-                <h1>Categories</h1>
+            <div className='col-span-12 flex flex-col justify-center items-center border-2 border-primary my-4'>
+                <h1 className='font-bold text-3xl'>Categorias</h1>
                 <ul className='flex flex-wrap justify-center'>
                     {
                         categories.map((cat) => {
