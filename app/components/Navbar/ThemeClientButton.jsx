@@ -2,10 +2,6 @@
 import { useEffect } from 'react'
 import { themeChange } from 'theme-change'
 
-
-
-
-
 const ClientButton = () => {
 
     useEffect(() => {
