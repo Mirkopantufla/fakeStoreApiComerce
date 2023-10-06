@@ -7,7 +7,7 @@ export const ProductCard = ({ product }) => {
             <figure className='bg-white flex justify-center'><img className='h-48' src={product.image} alt="Shoes" /></figure>
             <div className="card-body">
                 <Link className="card-title truncate" href={`/products/${product.id}`}>{product.title}</Link>
-                <p className='text-ellipsis h-32 overflow-y-auto overflow-x-hidden'>{product.description}</p>
+                <p className='text-ellipsis h-[7.5rem] overflow-y-auto overflow-x-hidden'>{product.description}</p>
             </div>
             <div className="card-actions items-center justify-between px-7">
                 <div className="badge badge-outline">{product.category}</div>

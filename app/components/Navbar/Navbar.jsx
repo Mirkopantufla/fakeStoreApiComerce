@@ -5,17 +5,15 @@ import ClientButton from './ThemeClientButton'
 const Navbar = () => {
     return (
         <nav className="navbar bg-base-100">
-            <div className="flex-1">
+            <div className="navbar-start">
                 <Link href={"/"} className="btn btn-ghost normal-case text-xl">FakeStore</Link>
             </div>
-            <div className='flex-1'>
+            <div className='navbar-center'>
                 <Link href="/products">Productos</Link>
             </div>
-            <ClientButton />
-            <div className="flex-none">
-                <div>
-                    <Link href={'/login'} className='btn btn-primary mx-2'>Login</Link>
-                </div>
+
+            <div className="navbar-end">
+                <ClientButton />
                 <div className="dropdown dropdown-end">
                     <label tabIndex={0} className="btn btn-ghost btn-circle">
                         <div className="indicator">
@@ -32,6 +30,9 @@ const Navbar = () => {
                             </div>
                         </div>
                     </div>
+                </div>
+                <div>
+                    <Link href={'/login'} className='btn btn-primary mx-2'>Login</Link>
                 </div>
                 <div className="dropdown dropdown-end">
                     <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
