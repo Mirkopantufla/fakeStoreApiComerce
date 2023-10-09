@@ -7,6 +7,7 @@ const page = () => {
         <div className='flex justify-center items-center min-h-[80vh]'>
             <form className='form-control border-2 rounded-lg border-neutral items-center p-10 gap-4 min-w-[30vw]'>
                 <h1 className='text-4xl text-center'>Iniciar Sesión</h1>
+                <div className='divider border-white before:bg-neutral after:bg-neutral' />
                 <label placeholder='Your User' className='label'>Correo</label>
                 <input className='input input-bordered w-full max-w-xs' type="text" />
                 <label className='label'>Constraseña</label>

@@ -9,9 +9,8 @@ const Navbar = () => {
                 <Link href={"/"} className="btn btn-ghost normal-case text-xl">FakeStore</Link>
             </div>
             <div className='navbar-center'>
-                <Link href="/products">Productos</Link>
+                <Link className='text-2xl hover:underline bg-primary-content hover:bg-neutral text-primary px-3 py-1 rounded-lg' href="/products">Productos</Link>
             </div>
-
             <div className="navbar-end">
                 <ClientButton />
                 <div className="dropdown dropdown-end">
