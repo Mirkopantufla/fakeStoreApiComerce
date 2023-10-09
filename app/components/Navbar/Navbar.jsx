@@ -8,9 +8,13 @@ const Navbar = () => {
             <div className="navbar-start">
                 <Link href={"/"} className="btn btn-ghost normal-case text-xl">FakeStore</Link>
             </div>
-            <div className='navbar-center'>
-                <Link className='text-2xl hover:underline bg-primary-content hover:bg-neutral text-primary px-3 py-1 rounded-lg' href="/products">Productos</Link>
-            </div>
+            <ul tabIndex={0} className="menu menu-sm dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+                <li className='border border-primary rounded-3xl'><Link className='text-xl' href="/products">Productos</Link></li>
+            </ul>
+            {/* <div className='navbar-center'> */}
+
+            {/*  */}
+            {/* </div> */}
             <div className="navbar-end">
                 <ClientButton />
                 <div className="dropdown dropdown-end">
