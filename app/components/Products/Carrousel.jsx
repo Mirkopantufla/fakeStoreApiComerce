@@ -11,6 +11,7 @@ const Carrousel = () => {
                     width={1000}
                     height={200}
                     alt="Banner Oferta 1"
+                    priority={true}
                 />
                 <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
                     <a href="#slide3" className="btn btn-circle">❮</a>

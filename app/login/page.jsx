@@ -9,7 +9,11 @@ const page = () => {
                 <h1 className='text-4xl text-center'>Iniciar Sesión</h1>
                 <div className='divider border-white before:bg-neutral after:bg-neutral' />
                 <label placeholder='Your User' className='label'>Correo</label>
-                <input className='input input-bordered w-full max-w-xs' type="text" />
+                <input
+                    className='input input-bordered w-full max-w-xs'
+                    type="email"
+                    name="email"
+                />
                 <label className='label'>Constraseña</label>
                 <input className='input input-bordered w-full max-w-xs' type="text" name="" id="" />
                 <label className='flex justify-between' htmlFor="">
