@@ -11,10 +11,6 @@ const Navbar = () => {
             <ul tabIndex={0} className="menu menu-sm dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-52">
                 <li className='border border-primary rounded-3xl'><Link className='text-xl' href="/products">Productos</Link></li>
             </ul>
-            {/* <div className='navbar-center'> */}
-
-            {/*  */}
-            {/* </div> */}
             <div className="navbar-end">
                 <ClientButton />
                 <div className="dropdown dropdown-end">

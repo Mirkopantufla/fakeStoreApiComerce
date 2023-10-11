@@ -52,9 +52,6 @@ const Products = () => {
 
     return (
         <main>
-            <div className='col-span-12 text-center my-2'>
-                {/* <h1 className='text-6xl'>Todos los productos a buen precio!</h1> */}
-            </div>
             <div className='col-span-12 flex flex-col justify-center items-center border-y-2 border-primary my-4'>
                 <h1 className='font-bold text-3xl'>Filtrar por Categorias</h1>
                 <ul className='flex flex-wrap justify-center'>

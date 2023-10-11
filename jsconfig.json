@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "paths": {
-      "@/*": ["./*"]
+      // Cualquier cosa que venga despues del @
+      // Parte desde el root ./ 
+      "@/*": [
+        "./*"
+      ]
     }
   }
 }

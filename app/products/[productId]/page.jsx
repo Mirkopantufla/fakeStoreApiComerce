@@ -18,9 +18,11 @@ const ProductDisplay = async ({ params }) => {
                 <ProductClientButton />
             </div>
             <div className='col-start-2 col-span-4 row-span-3 flex flex-col items-center border-2 p-10'>
-                <img style={{ width: "400px", height: "400px" }} src={product.image} alt="" />
                 {product.id}
-                <h1 className='text-4xl'>{product.title}</h1>
+                <div className='w-[400px] h-[400px] flex justify-center m-5'>
+                    <img className='w-auto h-full' src={product.image} alt="" />
+                </div>
+                <h1 className='text-4xl text-center'>{product.title}</h1>
                 <h1>{product.price}</h1>
                 <br />
                 <div className='flex flex-col items-center'>
