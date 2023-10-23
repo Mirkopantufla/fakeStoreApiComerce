@@ -1,3 +1,4 @@
+"use client"
 import Link from 'next/link'
 import React from 'react'
 import ClientModalButton from './ClientModalButton'
@@ -12,21 +13,37 @@ const page = () => {
     }
 
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (e) => {
+        e.prevent.default()
+
+        const data = {
+            apiURL: "http://127.0.0.1:5000/api/register",
+            options: {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(credentials)
+            }
+        }
+
 
         try {
 
-            const respJson = await fetch()
+            const respJson = await fetch(data.apiURL, data.options);
+            const data = await respJson.json();
+
+            console.log(data)
 
         } catch (error) {
-
+            console.log(error)
         }
     }
 
 
     return (
         <div className='flex justify-center items-center min-h-[80vh]'>
-            <form className='form-control border-2 rounded-lg border-neutral items-center my-10 p-10 min-w-[35vw]' onSubmit={handleSubmit()}>
+            <form className='form-control border-2 rounded-lg border-neutral items-center my-10 p-10 min-w-[35vw]' onSubmit={handleSubmit}>
                 <div className='flex flex-col w-[70%] gap-7'>
                     <h1 className='text-4xl text-center font-bold'>Registrate</h1>
 
