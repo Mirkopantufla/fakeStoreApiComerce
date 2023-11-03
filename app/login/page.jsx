@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import React from 'react'
+import { toast } from 'react-toastify';
 
 //LOGIN PAGE
 const LoginPage = () => {
@@ -12,13 +13,15 @@ const LoginPage = () => {
     const onSubmit = async (e) => {
         e.preventDefault()
 
-        const username = e.target.username.value;
+        const email = e.target.email.value;
         const password = e.target.password.value;
 
+        const baseUrl = 'http://127.0.0.1:5000/api'
+
         const options = {
-            method: "POST",
+            method: 'POST',
             body: JSON.stringify({
-                username: username,
+                email: email,
                 password: password
             }),
             headers: {
@@ -26,12 +29,15 @@ const LoginPage = () => {
             },
         }
 
-        const respJson = await fetch('https://fakestoreapi.com/auth/login', options)
+        const respJson = await fetch(`${baseUrl}/login`, options)
         const data = await respJson.json();
 
-        console.log(data)
-
-        router.push('/products')
+        if (data?.status === 200) {
+            toast.success("Logeado correctamente", { autoClose: 3000 })
+            router.push('/products')
+        } else if (data?.status >= 400) {
+            toast.warning("Usuario o contraseña incorrectos!")
+        }
     }
 
 
@@ -45,10 +51,10 @@ const LoginPage = () => {
                 <label placeholder='Your User' className='label'>Username</label>
                 <input
                     className='input input-bordered w-full max-w-xs'
-                    placeholder='pepito123'
-                    type="text"
-                    name="username"
-                    id="username"
+                    placeholder='correo@correo.cl'
+                    type="email"
+                    name="email"
+                    id="email"
                 />
                 <label className='label'>Constraseña</label>
                 <input
@@ -64,7 +70,6 @@ const LoginPage = () => {
                         Registrate!
                     </Link>
                 </label>
-
                 <button className='btn btn-primary'>Login</button>
             </form>
         </div>
