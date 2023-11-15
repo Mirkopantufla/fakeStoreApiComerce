@@ -1,9 +1,11 @@
 import Link from 'next/link'
 import React from 'react'
+import ProductCardButton from './ProductCardButton'
+import { BsCartPlusFill } from 'react-icons/bs'
 
 export const ProductCard = ({ product }) => {
     return (
-        <div className="card xl:w-96 lg:w-80 w-96 bg-base-100 border border-white shadow-xl pb-5">
+        <div className="card xl:w-96 lg:w-80 w-96 bg-base-100 border border-primary p-1 shadow-xl pb-5">
             <figure className='bg-white flex justify-center'><img className='h-48' src={product.image} alt="Shoes" /></figure>
             <div className="card-body">
                 <Link className="card-title truncate" href={`/products/${product.id}`}>{product.title}</Link>
@@ -11,7 +13,8 @@ export const ProductCard = ({ product }) => {
             </div>
             <div className="card-actions items-center justify-between px-7">
                 <div className="badge badge-outline">{product.category}</div>
-                <button className="btn btn-primary">Buy Now</button>
+                <button className='btn btn-primary justify-self-end'><BsCartPlusFill className='text-2xl' /></button>
+                <ProductCardButton />
             </div>
         </div>
     )

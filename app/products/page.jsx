@@ -1,7 +1,7 @@
 "use client"
 import React, { useEffect, useState } from 'react'
-import { ProductCard } from '../components/ProductCard'
-import Carrousel from '../components/Products/Carrousel'
+import { ProductCard } from '../../components/ProductCard/ProductCard.jsx'
+import Carrousel from '../../components/Products/Carrousel.jsx'
 
 //Pagina de Productos
 export const metadata = {
@@ -52,8 +52,8 @@ const Products = () => {
 
     return (
         <main>
-            <div className='col-span-12 flex flex-col justify-center items-center border-y-2 border-primary my-4'>
-                <h1 className='font-bold text-3xl'>Filtrar por Categorias</h1>
+            <div className='col-span-12 flex flex-col justify-center items-center border-y-2 border-primary mb-3 p-3'>
+                <h1 className='font-bold text-3xl'>Filter by Category</h1>
                 <ul className='flex flex-wrap justify-center'>
                     <li className='mx-4 my-2'>
                         <button onClick={() => setSelected("")} className='btn btn-primary h-9'>All</button>

@@ -1,10 +1,11 @@
 import Link from 'next/link'
 import React from 'react'
-import ClientButton from './ThemeClientButton'
+import ThemeClientButton from './ThemeClientButton'
+import CartClientButton from './CartClientButton'
 
 const Navbar = () => {
     return (
-        <nav className="navbar bg-base-100">
+        <nav className="navbar bg-base-100 border-4 border-primary">
             <div className="navbar-start">
                 <Link href={"/"} className="btn btn-ghost normal-case text-xl">FakeStore</Link>
             </div>
@@ -12,7 +13,7 @@ const Navbar = () => {
                 <li className='border border-primary rounded-3xl'><Link className='text-xl' href="/products">Productos</Link></li>
             </ul>
             <div className="navbar-end">
-                <ClientButton />
+                <ThemeClientButton />
                 <div className="dropdown dropdown-end">
                     <label tabIndex={0} className="btn btn-ghost btn-circle">
                         <div className="indicator">
@@ -25,7 +26,7 @@ const Navbar = () => {
                             <span className="font-bold text-lg">10 Items</span>
                             <span className="text-info">Subtotal: $999</span>
                             <div className="card-actions">
-                                <button className="btn btn-primary btn-block">View cart</button>
+                                <CartClientButton></CartClientButton>
                             </div>
                         </div>
                     </div>

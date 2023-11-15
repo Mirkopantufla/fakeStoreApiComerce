@@ -1,9 +1,10 @@
-import Footer from './components/Footer'
-import Navbar from './components/Navbar/Navbar.jsx'
+import Footer from '../components/Footer'
+import Navbar from '../components/Navbar/Navbar.jsx'
 import './globals.css'
 import "react-toastify/dist/ReactToastify.css";
 import { Inter } from 'next/font/google'
 import { ToastContainer } from 'react-toastify';
+import { GlobalProvider } from '@/context/GlobalContext.jsx';
 
 //Layout Global
 
@@ -14,12 +15,14 @@ export const metadata = {
   description: 'Fake store with nextJS, data from fakeStoreAPI',
 }
 
-export default function RootLayout({ children }) {
+function RootLayout({ children }) {
   return (
     <html lang="es">
       <body className={inter.className}>
         <Navbar />
-        {children}
+        <GlobalProvider>
+          {children}
+        </GlobalProvider>
         <Footer />
         <ToastContainer
           className='font-bold'
@@ -32,3 +35,5 @@ export default function RootLayout({ children }) {
     </html>
   )
 }
+
+export default RootLayout;
