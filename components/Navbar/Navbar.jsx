@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import React from 'react'
 import ThemeClientButton from './ThemeClientButton'
-import CartClientButton from './CartClientButton'
 
 const Navbar = () => {
     return (
@@ -13,6 +12,7 @@ const Navbar = () => {
                 <li className='border border-primary rounded-3xl'><Link className='text-xl' href="/products">Productos</Link></li>
             </ul>
             <div className="navbar-end">
+                <Link href={'/admin/products'} className='btn btn-accent me-2'>ADMIN</Link>
                 <ThemeClientButton />
                 <div className="dropdown dropdown-end">
                     <label tabIndex={0} className="btn btn-ghost btn-circle">
@@ -26,7 +26,7 @@ const Navbar = () => {
                             <span className="font-bold text-lg">10 Items</span>
                             <span className="text-info">Subtotal: $999</span>
                             <div className="card-actions">
-                                <CartClientButton></CartClientButton>
+                                <Link href={'/cart'} className="btn btn-primary btn-block">View cart</Link>
                             </div>
                         </div>
                     </div>
@@ -36,8 +36,8 @@ const Navbar = () => {
                 </div>
                 <div className="dropdown dropdown-end">
                     <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-                        <div className="w-10 rounded-full">
-                            <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                        <div className="relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
+                            <svg className="absolute w-12 h-12 text-gray-400 -left-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
                         </div>
                     </label>
                     <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">

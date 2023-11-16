@@ -10,11 +10,11 @@ export const metadata = {
 const AdminLayout = ({ children }) => {
 
     return (
-        <div>
+        <div className='py-4'>
             <h1 className='text-center text-4xl'>Seccion de Administración</h1>
-            <div className='flex justify-evenly bg-accent bg-opacity-25 py-1'>
-                <Link className='bg-neutral text-primary p-4' href={'/admin/products'}>Products</Link>
-                <Link className='bg-neutral text-primary p-4' href={'/admin/users'}>Users</Link>
+            <div className='flex justify-evenly bg-accent bg-opacity-25'>
+                <Link className='bg-neutral text-primary p-2' href={'/admin/products'}>Products</Link>
+                <Link className='bg-neutral text-primary p-2' href={'/admin/users'}>Users</Link>
             </div>
             {children}
         </div>
