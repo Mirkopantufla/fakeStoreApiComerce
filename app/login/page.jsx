@@ -1,14 +1,16 @@
 "use client"
 
+import { GlobalContext } from '@/context/GlobalContext';
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import React from 'react'
+import React, { useContext } from 'react'
 import { toast } from 'react-toastify';
 
 //LOGIN PAGE
 const LoginPage = () => {
 
     const router = useRouter();
+    const { store } = useContext(GlobalContext)
 
     const onSubmit = async (e) => {
         e.preventDefault()
@@ -34,6 +36,7 @@ const LoginPage = () => {
 
         if (data?.status === 200) {
             toast.success("Logeado correctamente", { autoClose: 3000 })
+
             router.push('/products')
         } else if (data?.status >= 400) {
             toast.warning("Usuario o contraseña incorrectos!")

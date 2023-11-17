@@ -1,36 +1,52 @@
 "use client"
 import Link from 'next/link'
-import React from 'react'
+import React, { useContext } from 'react'
 import ClientModalButton from './ClientModalButton'
+import { GlobalContext } from '@/context/GlobalContext'
 
 //REGISTER PAGE
 const page = () => {
 
     const inputClassName = 'input input-sm text-center input-bordered w-full'
+    const { store, actions } = useContext(GlobalContext)
 
-    const validateForm = () => {
+    const validateForm = (e) => {
 
+        return true;
     }
 
 
     const handleSubmit = async (e) => {
         e.prevent.default()
 
-        const data = {
-            apiURL: "http://127.0.0.1:5000/api/register",
+        const formData = {
+            email: store.registerEmail,
+            rut_number: store.registerRut_number,
+            first_name: store.registerFirst_name,
+            last_name: store.registerLast_name,
+            phone_number: store.registerPhone_number,
+            password: store.registerPassword,
+            repeatPassword: store.registerRepeatPassword,
+            terms_conditions: store.registerTermsAndCoinditions
+        }
+
+        console.log(formData)
+
+        const fetchOptions = {
+            apiURL: "http://127.0.0.1:5000/api/users/register",
             options: {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(credentials)
+                body: JSON.stringify(formData)
             }
         }
 
 
         try {
 
-            const respJson = await fetch(data.apiURL, data.options);
+            const respJson = await fetch(fetchOptions.apiURL, fetchOptions.options);
             const data = await respJson.json();
 
             console.log(data)
@@ -43,7 +59,10 @@ const page = () => {
 
     return (
         <div className='flex justify-center items-center min-h-[80vh]'>
-            <form className='form-control border-2 rounded-lg border-neutral items-center my-10 p-10 min-w-[35vw]' onSubmit={handleSubmit}>
+            <form
+                className='form-control border-2 rounded-lg border-neutral items-center my-10 p-10 min-w-[35vw]'
+                onSubmit={e => actions.registerUser(e)}
+            >
                 <div className='flex flex-col w-[70%] gap-7'>
                     <h1 className='text-4xl text-center font-bold'>Registrate</h1>
 
@@ -56,8 +75,9 @@ const page = () => {
                             placeholder='correo@correo.cl'
                             className={inputClassName}
                             type="email"
-                            name="email"
-                            id="email"
+                            name="registerEmail"
+                            id="registerEmail"
+                            onChange={(e) => actions.handleFormChange(e)}
                         />
                     </div>
                     {/* <------------------------- RUT ---------------------------> */}
@@ -67,8 +87,9 @@ const page = () => {
                             placeholder='141234567'
                             className={inputClassName}
                             type="text"
-                            name="rut_number"
-                            id="rut_number"
+                            name="registerRut_number"
+                            id="registerRut_number"
+                            onChange={(e) => actions.handleFormChange(e)}
                         />
                         <small className='text-secondary'>(Sin puntos ni guion)</small>
                     </div>
@@ -79,8 +100,9 @@ const page = () => {
                             placeholder='Federico'
                             className={inputClassName}
                             type="text"
-                            name="first_name"
-                            id="first_name"
+                            name="registerFirst_name"
+                            id="registerFirst_name"
+                            onChange={(e) => actions.handleFormChange(e)}
                         />
                     </div>
                     {/* <------------------------- APELLIDO ---------------------------> */}
@@ -90,8 +112,9 @@ const page = () => {
                             placeholder='Lorca'
                             className={inputClassName}
                             type="text"
-                            name="last_name"
-                            id="last_name"
+                            name="registerLast_name"
+                            id="registerLast_name"
+                            onChange={(e) => actions.handleFormChange(e)}
                         />
                     </div>
                     {/* <------------------------- TELEFONO ---------------------------> */}
@@ -100,9 +123,10 @@ const page = () => {
                         <input
                             placeholder='569 4055 0785'
                             className={inputClassName}
-                            type="text"
-                            name="phone_number"
-                            id="phone_number"
+                            type="number"
+                            name="registerPhone_number"
+                            id="registerPhone_number"
+                            onChange={(e) => actions.handleFormChange(e)}
                         />
                         <small className='text-secondary'>(Solo numeros)</small>
                     </div>
@@ -113,8 +137,9 @@ const page = () => {
                             placeholder='************'
                             className={inputClassName}
                             type="password"
-                            name="password"
-                            id="password"
+                            name="registerPassword"
+                            id="registerPassword"
+                            onChange={(e) => actions.handleFormChange(e)}
                         />
                     </div>
                     {/* <------------------------- CONTRASEÑA2 ---------------------------> */}
@@ -124,8 +149,9 @@ const page = () => {
                             placeholder='************'
                             className={inputClassName}
                             type="password"
-                            name="repeatPassword"
-                            id="repeatPassword"
+                            name="registerRepeatPassword"
+                            id="registerRepeatPassword"
+                            onChange={(e) => actions.handleFormChange(e)}
                         />
                     </div>
                     {/* <------------------------- TERMINOS Y CONDICIONES ---------------------------> */}
@@ -134,15 +160,18 @@ const page = () => {
                             <input
                                 className='me-4 checkbox checkbox-primary'
                                 type="checkbox"
+                                name="registerTermsAndCoinditions"
+                                id="registerTermsAndCoinditions"
+                                onChange={(e) => actions.handleFormCheckbox(e)}
                             />
                             <ClientModalButton />
                         </div>
                         <small className='text-secondary'>(Debes aceptar los terminos para registrate)</small>
                     </div>
 
-                    {/* <------------------------- BOTON REGISTRAR ---------------------------> */}
-                    <button type='button' className='btn btn-primary mt-4'>Registrarme!</button>
                 </div>
+                {/* <------------------------- BOTON REGISTRAR ---------------------------> */}
+                <button className='btn btn-primary mt-4'>Registrarme!</button>
             </form>
 
             {/* Dialogo de modal */}
