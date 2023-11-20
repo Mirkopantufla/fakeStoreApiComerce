@@ -10,53 +10,6 @@ const page = () => {
     const inputClassName = 'input input-sm text-center input-bordered w-full'
     const { store, actions } = useContext(GlobalContext)
 
-    const validateForm = (e) => {
-
-        return true;
-    }
-
-
-    const handleSubmit = async (e) => {
-        e.prevent.default()
-
-        const formData = {
-            email: store.registerEmail,
-            rut_number: store.registerRut_number,
-            first_name: store.registerFirst_name,
-            last_name: store.registerLast_name,
-            phone_number: store.registerPhone_number,
-            password: store.registerPassword,
-            repeatPassword: store.registerRepeatPassword,
-            terms_conditions: store.registerTermsAndCoinditions
-        }
-
-        console.log(formData)
-
-        const fetchOptions = {
-            apiURL: "http://127.0.0.1:5000/api/users/register",
-            options: {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(formData)
-            }
-        }
-
-
-        try {
-
-            const respJson = await fetch(fetchOptions.apiURL, fetchOptions.options);
-            const data = await respJson.json();
-
-            console.log(data)
-
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
-
     return (
         <div className='flex justify-center items-center min-h-[80vh]'>
             <form
@@ -69,103 +22,111 @@ const page = () => {
                     <div className='divider border-white before:bg-neutral after:bg-neutral' />
 
                     {/* <------------------------- CORREO ---------------------------> */}
-                    <div>
+                    <div id="registerEmail">
                         <label className='font-bold text-lg'>Correo</label>
                         <input
                             placeholder='correo@correo.cl'
                             className={inputClassName}
                             type="email"
                             name="registerEmail"
-                            id="registerEmail"
                             onChange={(e) => actions.handleFormChange(e)}
+                            onBlur={(e) => actions.validateFormData(e)}
                         />
+                        <small className='hidden text-red-500'></small>
                     </div>
                     {/* <------------------------- RUT ---------------------------> */}
-                    <div>
+                    <div className='flex flex-col' id="registerRut_number">
                         <label className='font-bold text-lg'>Rut</label>
                         <input
                             placeholder='141234567'
                             className={inputClassName}
                             type="text"
                             name="registerRut_number"
-                            id="registerRut_number"
                             onChange={(e) => actions.handleFormChange(e)}
+                            onBlur={(e) => actions.validateFormData(e)}
                         />
+                        <small className='hidden mt-1 text-red-500'></small>
                         <small className='text-secondary'>(Sin puntos ni guion)</small>
                     </div>
                     {/* <------------------------- NOMBRE ---------------------------> */}
-                    <div>
+                    <div id="registerFirst_name">
                         <label className='font-bold text-lg'>Nombre</label>
                         <input
                             placeholder='Federico'
                             className={inputClassName}
                             type="text"
                             name="registerFirst_name"
-                            id="registerFirst_name"
                             onChange={(e) => actions.handleFormChange(e)}
+                            onBlur={(e) => actions.validateFormData(e)}
                         />
+                        <small className='hidden text-red-500'></small>
                     </div>
                     {/* <------------------------- APELLIDO ---------------------------> */}
-                    <div>
+                    <div id="registerLast_name">
                         <label className='font-bold text-lg'>Apellido</label>
                         <input
-                            placeholder='Lorca'
+                            placeholder="Lorca"
                             className={inputClassName}
                             type="text"
                             name="registerLast_name"
-                            id="registerLast_name"
                             onChange={(e) => actions.handleFormChange(e)}
+                            onBlur={(e) => actions.validateFormData(e)}
                         />
+                        <small className='hidden text-red-500'></small>
                     </div>
                     {/* <------------------------- TELEFONO ---------------------------> */}
-                    <div>
+                    <div id="registerPhone_number">
                         <label className='font-bold text-lg'>Numero de Telefono</label>
                         <input
                             placeholder='569 4055 0785'
                             className={inputClassName}
                             type="number"
                             name="registerPhone_number"
-                            id="registerPhone_number"
                             onChange={(e) => actions.handleFormChange(e)}
+                            onBlur={(e) => actions.validateFormData(e)}
                         />
+                        <small className='hidden mt-1 text-red-500'></small>
                         <small className='text-secondary'>(Solo numeros)</small>
                     </div>
                     {/* <------------------------- CONTRASEÑA ---------------------------> */}
-                    <div>
+                    <div id="registerPassword">
                         <label className='font-bold text-lg'>Constraseña</label>
                         <input
                             placeholder='************'
                             className={inputClassName}
                             type="password"
                             name="registerPassword"
-                            id="registerPassword"
                             onChange={(e) => actions.handleFormChange(e)}
+                            onBlur={(e) => actions.validateFormData(e)}
                         />
+                        <small className='hidden text-red-500'></small>
                     </div>
                     {/* <------------------------- CONTRASEÑA2 ---------------------------> */}
-                    <div>
+                    <div id="registerRepeatPassword">
                         <label className='font-bold text-lg'>Repite Contraseña</label>
                         <input
                             placeholder='************'
                             className={inputClassName}
                             type="password"
                             name="registerRepeatPassword"
-                            id="registerRepeatPassword"
                             onChange={(e) => actions.handleFormChange(e)}
+                            onBlur={(e) => actions.validateFormData(e)}
                         />
+                        <small className='hidden text-red-500'></small>
                     </div>
                     {/* <------------------------- TERMINOS Y CONDICIONES ---------------------------> */}
-                    <div className='mb-1 flex flex-col items-center'>
-                        <div className='flex'>
+                    <div className='flex flex-col items-center' id="registerTermsAndCoinditions">
+                        <div>
                             <input
                                 className='me-4 checkbox checkbox-primary'
                                 type="checkbox"
                                 name="registerTermsAndCoinditions"
-                                id="registerTermsAndCoinditions"
-                                onChange={(e) => actions.handleFormCheckbox(e)}
+                                onChange={(e) => actions.handleFormChange(e)}
+                                onBlur={(e) => actions.validateFormData(e)}
                             />
                             <ClientModalButton />
                         </div>
+                        <small className='hidden text-red-500'></small>
                         <small className='text-secondary'>(Debes aceptar los terminos para registrate)</small>
                     </div>
 
