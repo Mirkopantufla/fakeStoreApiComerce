@@ -126,9 +126,26 @@ const getState = ({ getStore, getActions, setStore }) => {
                     }
                     //-------------------------------------------------------------------------------
                 } else if (name === "registerPhone_number") {
+                    //Validando el numero de telefono
 
-                    if (value === "") {
-                        return hasError = true;
+                    if (value === "" || value === undefined) {
+                        hasError = true;
+                        nextElementSibling.classList.remove("hidden");
+                        nextElementSibling.innerHTML = "El numero de telefono no puede quedar vacio";
+                        e.target.classList.add("border-neutral")
+                        e.target.classList.remove("border-primary")
+                    } else if (!soloNumeros.test(value)) {
+                        hasError = true;
+                        nextElementSibling.classList.remove("hidden");
+                        e.target.classList.add("border-neutral")
+                        e.target.classList.remove("border-primary")
+                        nextElementSibling.innerHTML = "El telefono debe tener solo numeros.";
+                        return hasError;
+                    } else {
+                        hasError = false;
+                        nextElementSibling.classList.add("hidden")
+                        e.target.classList.add("border-primary")
+                        e.target.classList.remove("border-neutral")
                     }
                     //-------------------------------------------------------------------------------
                 } else if (name === "registerPassword") {
