@@ -77,7 +77,7 @@ const page = () => {
                         />
                         <small className='hidden text-red-500'></small>
                     </div>
-                    {/* <------------------------- TELEFONO ---------------------------> */}
+                    {/* <------------------------- PHONE NUMBER ---------------------------> */}
                     <div className='flex flex-col' id="registerPhone_number">
                         <label className='font-bold text-lg'>Numero de Telefono</label>
                         <input
@@ -91,13 +91,13 @@ const page = () => {
                         <small className='hidden mt-1 text-red-500'></small>
                         <small className='text-secondary'>(Solo numeros)</small>
                     </div>
-                    {/* <------------------------- CONTRASEÑA ---------------------------> */}
+                    {/* <------------------------- PASSWORD ---------------------------> */}
                     <div id="registerPassword">
                         <label className='font-bold text-lg'>Constraseña</label>
                         <p></p>
                         <input
                             placeholder='************'
-                            className={inputClassName}
+                            className={`${inputClassName} relative`}
                             type="password"
                             name="registerPassword"
                             onChange={(e) => actions.handleFormChange(e)}
@@ -117,7 +117,7 @@ const page = () => {
                             - Almenos un caracter especial
                         </small>
                     </div>
-                    {/* <------------------------- CONTRASEÑA2 ---------------------------> */}
+                    {/* <------------------------- PASSWORD 2 ---------------------------> */}
                     <div id="registerRepeatPassword">
                         <label className='font-bold text-lg'>Repite Contraseña</label>
                         <input
@@ -130,7 +130,7 @@ const page = () => {
                         />
                         <small className='hidden text-red-500'></small>
                     </div>
-                    {/* <------------------------- TERMINOS Y CONDICIONES ---------------------------> */}
+                    {/* <------------------------- TERMS & CONDITIONS ---------------------------> */}
                     <div className='flex flex-col items-center' id="registerTermsAndConditions">
                         <div>
                             <input
@@ -148,11 +148,17 @@ const page = () => {
                     </div>
 
                 </div>
-                {/* <------------------------- BOTON REGISTRAR ---------------------------> */}
-                <button className='btn btn-primary mt-4'>Registrarme!</button>
+                {/* <------------------------- REGISTER BUTTON ---------------------------> */}
+                <button disabled={store.isLoading} className='btn btn-primary mt-4 disabled:opacity-75'>
+                    {store?.isLoading ?
+                        <span className="loading loading-spinner loading-lg text-primary"></span>
+                        :
+                        'Registrate!'}
+                </button>
+
             </form>
 
-            {/* Dialogo de modal */}
+            {/* -------------------------------------- MODAL DIALOG -------------------------------------- */}
             <dialog id="my_modal_2" className="modal">
                 <div className="modal-box">
                     <h3 className="font-bold text-lg">Terminos y Condiciones</h3>

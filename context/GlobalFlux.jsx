@@ -8,7 +8,8 @@ const getState = ({ getStore, getActions, setStore }) => {
         store: {
             apiURL: 'http://127.0.0.1:5000',
             cart: [],
-            registerTermsAndConditions: false
+            registerTermsAndConditions: false,
+            isLoading: false
         },
         actions: {
             handleFormChange: (e) => {
@@ -168,7 +169,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
                 e.preventDefault()
 
-                const { registerEmail, registerRut_number, registerFirst_name, registerLast_name, registerPhone_number, registerPassword, registerRepeatPassword, registerTermsAndConditions } = getStore();
+                const { isLoading, registerEmail, registerRut_number, registerFirst_name, registerLast_name, registerPhone_number, registerPassword, registerRepeatPassword, registerTermsAndConditions } = getStore();
 
 
                 const formData = {
@@ -193,8 +194,9 @@ const getState = ({ getStore, getActions, setStore }) => {
                     }
                 }
 
+                setStore({ isLoading: true })
 
-                console.log(formData)
+                // console.log(formData)
 
                 const fetchOptions = {
                     apiURL: "http://127.0.0.1:5000/api/users/register",
@@ -217,6 +219,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 
                 } catch (error) {
                     console.log(error)
+                } finally {
+                    setStore({ isLoading: false })
+                    toast.success("Registrado correctamente.")
                 }
 
             },
