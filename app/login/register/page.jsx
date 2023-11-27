@@ -1,14 +1,17 @@
 "use client"
 import Link from 'next/link'
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import ClientModalButton from './ClientModalButton'
 import { GlobalContext } from '@/context/GlobalContext'
 
 //REGISTER PAGE
 const page = () => {
 
+
     const inputClassName = 'input input-sm text-center input-bordered w-full'
     const { store, actions } = useContext(GlobalContext)
+    const [conditions, setConditions] = useState(false);
+
 
     return (
         <div className='flex justify-center items-center min-h-[80vh]'>
@@ -27,7 +30,7 @@ const page = () => {
                         <input
                             placeholder='correo@correo.cl'
                             className={inputClassName}
-                            type="email"
+                            type="text"
                             name="registerEmail"
                             onChange={(e) => actions.handleFormChange(e)}
                             onBlur={(e) => actions.validateFormData(e)}
@@ -38,7 +41,7 @@ const page = () => {
                     <div className='flex flex-col' id="registerRut_number">
                         <label className='font-bold text-lg'>Rut</label>
                         <input
-                            placeholder='141234567'
+                            placeholder='12345678-9'
                             className={inputClassName}
                             type="text"
                             name="registerRut_number"
@@ -46,7 +49,7 @@ const page = () => {
                             onBlur={(e) => actions.validateFormData(e)}
                         />
                         <small className='hidden mt-1 text-red-500'></small>
-                        <small className='text-secondary'>(Sin puntos ni guion)</small>
+                        <small className='text-secondary mt-1'>(SIN puntos y CON guion. "xxxxxxxx-x" )</small>
                     </div>
                     {/* <------------------------- NOMBRE ---------------------------> */}
                     <div id="registerFirst_name">
@@ -75,12 +78,12 @@ const page = () => {
                         <small className='hidden text-red-500'></small>
                     </div>
                     {/* <------------------------- TELEFONO ---------------------------> */}
-                    <div id="registerPhone_number">
+                    <div className='flex flex-col' id="registerPhone_number">
                         <label className='font-bold text-lg'>Numero de Telefono</label>
                         <input
                             placeholder='569 4055 0785'
                             className={inputClassName}
-                            type="number"
+                            type="text"
                             name="registerPhone_number"
                             onChange={(e) => actions.handleFormChange(e)}
                             onBlur={(e) => actions.validateFormData(e)}
@@ -91,6 +94,7 @@ const page = () => {
                     {/* <------------------------- CONTRASEÑA ---------------------------> */}
                     <div id="registerPassword">
                         <label className='font-bold text-lg'>Constraseña</label>
+                        <p></p>
                         <input
                             placeholder='************'
                             className={inputClassName}
@@ -100,6 +104,18 @@ const page = () => {
                             onBlur={(e) => actions.validateFormData(e)}
                         />
                         <small className='hidden text-red-500'></small>
+                        <br />
+                        <small className='text-secondary'>
+                            - Minimo 8 caracteres
+                            <br />
+                            - Almenos una letra Mayuscula
+                            <br />
+                            - Almenos una letra Minuscula
+                            <br />
+                            - Almenos un numero
+                            <br />
+                            - Almenos un caracter especial
+                        </small>
                     </div>
                     {/* <------------------------- CONTRASEÑA2 ---------------------------> */}
                     <div id="registerRepeatPassword">
@@ -115,18 +131,19 @@ const page = () => {
                         <small className='hidden text-red-500'></small>
                     </div>
                     {/* <------------------------- TERMINOS Y CONDICIONES ---------------------------> */}
-                    <div className='flex flex-col items-center' id="registerTermsAndCoinditions">
+                    <div className='flex flex-col items-center' id="registerTermsAndConditions">
                         <div>
                             <input
                                 className='me-4 checkbox checkbox-primary'
                                 type="checkbox"
-                                name="registerTermsAndCoinditions"
-                                onChange={(e) => actions.handleFormChange(e)}
-                                onBlur={(e) => actions.validateFormData(e)}
+                                name="registerTermsAndConditions"
+                                value={false}
+                                onClick={() => setConditions(!conditions)}
+                                onChange={(e) => actions.validateFormData(e)}
                             />
                             <ClientModalButton />
                         </div>
-                        <small className='hidden text-red-500'></small>
+                        <small id="smallRegisterTermsAndConditions" className='hidden text-red-500'>Es obligatorio aceptar los terminos para continuar.</small>
                         <small className='text-secondary'>(Debes aceptar los terminos para registrate)</small>
                     </div>
 

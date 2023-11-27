@@ -1,180 +1,169 @@
 'use client'
 
-import { soloLetras, soloNumeros, solocorreos } from "@/utils/regexStore";
+import { regexCorreos, regexRut, regexSecurePassword, regexSoloLetras, regexSoloNumeros } from "@/utils/regexStore";
+import { toast } from "react-toastify";
 
 const getState = ({ getStore, getActions, setStore }) => {
     return {
         store: {
             apiURL: 'http://127.0.0.1:5000',
             cart: [],
-            registerForm: [
-
-            ]
+            registerTermsAndConditions: false
         },
         actions: {
             handleFormChange: (e) => {
-                let { name, value, checked } = e.target;
+                let { name, value } = e.target;
                 const { validateFormData } = getActions();
 
-                if (name === "registerTermsAndCoinditions") {
-                    setStore({ [name]: checked })
-                } else {
-                    setStore({ [name]: value })
-                }
+                setStore({ [name]: value })
 
                 validateFormData(e);
             },
+            changeTermsAndConditions: () => {
+
+                const { registerTermsAndConditions } = getStore()
+
+                setStore({ registerTermsAndConditions: !registerTermsAndConditions })
+            },
+
+            validateData: (e, innerMessage1, innerMessage2, regex, hasError) => {
+
+                const { registerTermsAndConditions, registerRepeatPassword, registerPassword } = getStore();
+                const { changeTermsAndConditions } = getActions();
+
+                //Validando el Email, Primero si esta vacio y despues con un formato de correo
+
+
+                if (e.target.name === 'registerEmail' ||
+                    e.target.name === 'registerRut_number' ||
+                    e.target.name === 'registerFirst_name' ||
+                    e.target.name === 'registerLast_name' ||
+                    e.target.name === 'registerPhone_number' ||
+                    e.target.name === 'registerPassword') {
+
+                    if (e.target.value === "" || e.target.value === undefined) {
+                        hasError = true;
+                        e.target.nextElementSibling.classList.remove("hidden");
+                        e.target.nextElementSibling.innerHTML = innerMessage1;
+                        e.target.classList.add("border-neutral")
+                        e.target.classList.remove("border-primary")
+                        return hasError;
+
+                    } else if (!regex.test(e.target.value)) {
+                        hasError = true;
+                        e.target.nextElementSibling.classList.remove("hidden");
+                        e.target.nextElementSibling.innerHTML = innerMessage2;
+                        e.target.classList.add("border-neutral")
+                        e.target.classList.remove("border-primary")
+                        return hasError;
+                    } else {
+                        hasError = false;
+                        e.target.nextElementSibling.classList.add("hidden")
+                        e.target.classList.add("border-primary")
+                        e.target.classList.remove("border-neutral")
+                        return hasError;
+                    }
+
+                } else if (e.target.name === 'registerRepeatPassword') {
+
+                    if (e.target.value === registerPassword) {
+                        hasError = false;
+                        e.target.nextElementSibling.classList.remove("hidden");
+                        e.target.nextElementSibling.classList.add("hidden");
+                        e.target.nextElementSibling.innerHTML = innerMessage1;
+                        e.target.classList.remove("border-neutral")
+                        e.target.classList.add("border-primary")
+                        return hasError;
+                    } else {
+                        hasError = true;
+                        e.target.nextElementSibling.classList.remove("hidden");
+                        e.target.nextElementSibling.innerHTML = innerMessage1;
+                        e.target.classList.remove("border-primary")
+                        e.target.classList.add("border-neutral")
+                        return hasError;
+                    }
+
+                } else {
+                    let terms = document.getElementById("smallRegisterTermsAndConditions");
+
+                    if (registerTermsAndConditions === false) {
+                        terms.classList.remove("hidden")
+                        terms.classList.add("hidden")
+                        hasError = true;
+                        changeTermsAndConditions()
+                        return hasError;
+                    } else {
+                        terms.classList.remove("hidden")
+                        hasError = false;
+                        changeTermsAndConditions()
+                        return hasError;
+                    }
+
+                }
+
+            },
+
             validateFormData: (e) => {
-                let { name, value, checked, nextElementSibling } = e.target;
                 let hasError = false;
+                const { validateData } = getActions();
+                const { registerRepeatPassword } = getStore();
+                let { name, value } = e.target;
+
 
                 //-------------------------------------------------------------------------------
                 if (name === "registerEmail") {
 
                     //Validando el Email, Primero si esta vacio y despues con un formato de correo
-                    if (value === "") {
-                        hasError = true;
-                        nextElementSibling.classList.remove("hidden");
-                        nextElementSibling.innerHTML = "El campo de correo no puede quedar vacio";
-                        e.target.classList.add("border-neutral")
-                        e.target.classList.remove("border-primary")
-                        return console.log("vacio registerEmail: " + hasError);
-
-                    } else if (!solocorreos.test(value)) {
-                        hasError = true;
-                        nextElementSibling.classList.remove("hidden");
-                        nextElementSibling.innerHTML = "El campo de correo debe tener un formato correcto";
-                        e.target.classList.add("border-neutral")
-                        e.target.classList.remove("border-primary")
-                        return hasError;
-                    } else {
-                        hasError = false;
-                        nextElementSibling.classList.add("hidden")
-                        e.target.classList.add("border-primary")
-                        e.target.classList.remove("border-neutral")
-                    }
+                    validateData(e, "El email no puede quedar vacio", "El correo debe tener un formato valido", regexCorreos, hasError)
 
                     //-------------------------------------------------------------------------------
                 } else if (name === "registerRut_number") {
+
                     //Validando el Rut
+                    validateData(e, "El Rut no puede quedar vacio", "El Rut debe ser valido", regexRut, hasError)
 
-                    if (value === "") {
-                        hasError = true;
-                        nextElementSibling.classList.remove("hidden");
-                        nextElementSibling.innerHTML = "El Rut no puede quedar vacio";
-                        e.target.classList.add("border-neutral")
-                        e.target.classList.remove("border-primary")
-                    } else if (!soloNumeros.test(value)) {
-                        hasError = true;
-                        nextElementSibling.classList.remove("hidden");
-                        nextElementSibling.innerHTML = "El Rut debe tener solo numeros";
-                        e.target.classList.add("border-neutral")
-                        e.target.classList.remove("border-primary")
-                        return hasError;
-                    } else {
-                        hasError = false;
-                        nextElementSibling.classList.add("hidden")
-                        e.target.classList.add("border-primary")
-                        e.target.classList.remove("border-neutral")
-                    }
-                    //-------------------------------------------------------------------------------
                 } else if (name === "registerFirst_name") {
-                    //Validando el nombre
 
-                    if (value === "") {
-                        hasError = true;
-                        nextElementSibling.classList.remove("hidden");
-                        nextElementSibling.innerHTML = "El Nombre no puede quedar vacio";
-                        e.target.classList.add("border-neutral")
-                        e.target.classList.remove("border-primary")
-                    } else if (!soloLetras.test(value)) {
-                        hasError = true;
-                        nextElementSibling.classList.remove("hidden");
-                        e.target.classList.add("border-neutral")
-                        e.target.classList.remove("border-primary")
-                        nextElementSibling.innerHTML = "El Nombre debe tener solo letras";
-                        return hasError;
-                    } else {
-                        hasError = false;
-                        nextElementSibling.classList.add("hidden")
-                        e.target.classList.add("border-primary")
-                        e.target.classList.remove("border-neutral")
-                    }
+                    //Validando el nombre
+                    validateData(e, "El Nombre no puede quedar vacio", "El Nombre debe tener solo letras", regexSoloLetras, hasError)
+
                     //-------------------------------------------------------------------------------
                 } else if (name === "registerLast_name") {
 
                     //Validando el apellido
+                    validateData(e, "El apellido no puede quedar vacio", "El apellido debe tener solo letras", regexSoloLetras, hasError)
 
-                    if (value === "") {
-                        hasError = true;
-                        nextElementSibling.classList.remove("hidden");
-                        nextElementSibling.innerHTML = "El Apellido no puede quedar vacio";
-                        e.target.classList.add("border-neutral")
-                        e.target.classList.remove("border-primary")
-                    } else if (!soloLetras.test(value)) {
-                        hasError = true;
-                        nextElementSibling.classList.remove("hidden");
-                        e.target.classList.add("border-neutral")
-                        e.target.classList.remove("border-primary")
-                        nextElementSibling.innerHTML = "El Apellido debe tener solo letras";
-                        return hasError;
-                    } else {
-                        hasError = false;
-                        nextElementSibling.classList.add("hidden")
-                        e.target.classList.add("border-primary")
-                        e.target.classList.remove("border-neutral")
-                    }
                     //-------------------------------------------------------------------------------
                 } else if (name === "registerPhone_number") {
                     //Validando el numero de telefono
 
-                    if (value === "" || value === undefined) {
-                        hasError = true;
-                        nextElementSibling.classList.remove("hidden");
-                        nextElementSibling.innerHTML = "El numero de telefono no puede quedar vacio";
-                        e.target.classList.add("border-neutral")
-                        e.target.classList.remove("border-primary")
-                    } else if (!soloNumeros.test(value)) {
-                        hasError = true;
-                        nextElementSibling.classList.remove("hidden");
-                        e.target.classList.add("border-neutral")
-                        e.target.classList.remove("border-primary")
-                        nextElementSibling.innerHTML = "El telefono debe tener solo numeros.";
-                        return hasError;
-                    } else {
-                        hasError = false;
-                        nextElementSibling.classList.add("hidden")
-                        e.target.classList.add("border-primary")
-                        e.target.classList.remove("border-neutral")
-                    }
+                    validateData(e, "El numero de telefono no puede quedar vacio", "El telefono debe tener solo numeros.", regexSoloNumeros, hasError)
+
                     //-------------------------------------------------------------------------------
                 } else if (name === "registerPassword") {
 
-                    if (value === "") {
-                        return hasError = true;
-                    }
+                    validateData(e, "Debe crear una contraseña.", "La contraseña debe tener el formato requerido.", regexSecurePassword, hasError)
+
                     //-------------------------------------------------------------------------------
                 } else if (name === "registerRepeatPassword") {
 
-                    if (value === "") {
-                        return hasError = true;
-                    }
-                    //-------------------------------------------------------------------------------
-                } else if (name === "registerTermsAndCoinditions") {
+                    validateData(e, "Las contraseñas deben ser iguales", "", undefined, hasError)
 
-                    if (checked === false) {
-                        return hasError = true;
-                    }
+                    //-------------------------------------------------------------------------------
+                } else if (name === "registerTermsAndConditions") {
+
+                    validateData(e, "Debes aceptar los terminos para continuar.", "", undefined, hasError)
                     //-------------------------------------------------------------------------------
                 }
 
-                console.log(hasError)
+                return hasError;
             },
             registerUser: async (e) => {
 
-                const { registerEmail, registerRut_number, registerFirst_name, registerLast_name, registerPhone_number, registerPassword, registerRepeatPassword, registerTermsAndCoinditions } = getStore();
-
                 e.preventDefault()
+
+                const { registerEmail, registerRut_number, registerFirst_name, registerLast_name, registerPhone_number, registerPassword, registerRepeatPassword, registerTermsAndConditions } = getStore();
+
 
                 const formData = {
                     email: registerEmail,
@@ -184,8 +173,20 @@ const getState = ({ getStore, getActions, setStore }) => {
                     phone_number: registerPhone_number,
                     password: registerPassword,
                     repeatPassword: registerRepeatPassword,
-                    terms_conditions: registerTermsAndCoinditions
+                    terms_conditions: registerTermsAndConditions
                 }
+
+                for (const key in formData) {
+                    let element = undefined;
+                    if (Object.hasOwnProperty.call(formData, key)) {
+                        element = formData[key];
+                    }
+
+                    if (element === undefined || element === null || element === "" || element === false) {
+                        return toast.error('Debes llenar el formulario antes de continuar.')
+                    }
+                }
+
 
                 console.log(formData)
 
