@@ -66,18 +66,24 @@ const getState = ({ getStore, getActions, setStore }) => {
 
                 } else if (e.target.name === 'registerRepeatPassword') {
 
-                    if (e.target.value === registerPassword) {
+                    if (e.target.value === "" || e.target.value === undefined) {
+                        hasError = true;
+                        e.target.nextElementSibling.classList.remove("hidden");
+                        e.target.nextElementSibling.innerHTML = innerMessage1;
+                        e.target.classList.remove("border-primary")
+                        e.target.classList.add("border-neutral")
+                        return hasError;
+                    } else if (e.target.value === registerPassword) {
                         hasError = false;
                         e.target.nextElementSibling.classList.remove("hidden");
                         e.target.nextElementSibling.classList.add("hidden");
-                        e.target.nextElementSibling.innerHTML = innerMessage1;
                         e.target.classList.remove("border-neutral")
                         e.target.classList.add("border-primary")
                         return hasError;
                     } else {
                         hasError = true;
                         e.target.nextElementSibling.classList.remove("hidden");
-                        e.target.nextElementSibling.innerHTML = innerMessage1;
+                        e.target.nextElementSibling.innerHTML = innerMessage2;
                         e.target.classList.remove("border-primary")
                         e.target.classList.add("border-neutral")
                         return hasError;
@@ -147,7 +153,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                     //-------------------------------------------------------------------------------
                 } else if (name === "registerRepeatPassword") {
 
-                    validateData(e, "Las contraseñas deben ser iguales", "", undefined, hasError)
+                    validateData(e, "Debes repetir tu contraseña.", "Las contraseñas deben ser iguales", undefined, hasError)
 
                     //-------------------------------------------------------------------------------
                 } else if (name === "registerTermsAndConditions") {
