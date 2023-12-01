@@ -1,6 +1,6 @@
 import { GlobalContext } from '@/context/GlobalContext';
 import { regexSpecialCharacters } from '@/utils/regexStore';
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 
 const VerifyPasswordSmalls = () => {
     const { store } = useContext(GlobalContext);

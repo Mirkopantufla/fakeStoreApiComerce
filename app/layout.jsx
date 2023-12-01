@@ -27,7 +27,7 @@ function RootLayout({ children }) {
         <ToastContainer
           className='font-bold'
           position='top-center'
-          autoClose={1000}
+          autoClose={2000}
           theme='dark'
           style={{ width: "50%" }}
         />

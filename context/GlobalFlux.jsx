@@ -152,7 +152,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                 const { registerEmail, registerFirst_name, registerLast_name, registerPhone_number, registerPassword, registerRepeatPassword, registerTermsAndConditions } = getStore();
 
                 //Se debe quitar el guion para mandar la informacion al back como number
-                registerRut_number = registerRut_number.slice(0, -2) + registerRut_number.slice(-1)
+                registerRut_number = registerRut_number?.slice(0, -2) + registerRut_number?.slice(-1)
 
                 //Ordeno la informacion para ser enviada al backend
                 const formData = {
@@ -202,7 +202,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                     const data = await respJson.json();
 
                     if (data.status >= 200 && data.status < 300) {
-                        toast.success("Registrado correctamente.")
+                        toast.success("Registrado correctamente, ahora puedes iniciar sesión.", { autoClose: 2000 })
                     }
 
                 } catch (error) {

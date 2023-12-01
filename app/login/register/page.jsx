@@ -1,23 +1,15 @@
 "use client"
 import React, { useContext, useState } from 'react'
-import ClientModalButton from './ClientModalButton'
+import ClientModalButton from '@/components/Login/Register/ClientModalButton'
 import { GlobalContext } from '@/context/GlobalContext'
 import VerifyPasswordSmalls from '@/components/Login/Register/VerifyPasswordSmalls'
 
 //REGISTER PAGE
 const page = () => {
 
-
     const inputClassName = 'input input-sm text-center input-bordered w-full'
     const { store, actions } = useContext(GlobalContext)
     const [conditions, setConditions] = useState(false);
-
-    const [passwordConditions, setPasswordConditions] = useState([{ 0: false, 1: false, 2: false, 3: false, 4: false }]);
-
-    const verifyPasswordSmalls = () => {
-
-    }
-
 
     return (
         <div className='flex justify-center items-center min-h-[80vh]'>
