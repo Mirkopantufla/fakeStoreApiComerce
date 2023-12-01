@@ -1,8 +1,8 @@
 "use client"
-import Link from 'next/link'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import ClientModalButton from './ClientModalButton'
 import { GlobalContext } from '@/context/GlobalContext'
+import VerifyPasswordSmalls from '@/components/Login/Register/VerifyPasswordSmalls'
 
 //REGISTER PAGE
 const page = () => {
@@ -11,6 +11,12 @@ const page = () => {
     const inputClassName = 'input input-sm text-center input-bordered w-full'
     const { store, actions } = useContext(GlobalContext)
     const [conditions, setConditions] = useState(false);
+
+    const [passwordConditions, setPasswordConditions] = useState([{ 0: false, 1: false, 2: false, 3: false, 4: false }]);
+
+    const verifyPasswordSmalls = () => {
+
+    }
 
 
     return (
@@ -92,9 +98,8 @@ const page = () => {
                         <small className='text-secondary'>(Solo numeros)</small>
                     </div>
                     {/* <------------------------- PASSWORD ---------------------------> */}
-                    <div id="registerPassword">
+                    <div className='flex flex-col' id="registerPassword">
                         <label className='font-bold text-lg'>Constraseña</label>
-                        <p></p>
                         <input
                             placeholder='************'
                             className={`${inputClassName} relative`}
@@ -104,18 +109,7 @@ const page = () => {
                             onBlur={(e) => actions.validateFormData(e)}
                         />
                         <small className='hidden text-red-500'></small>
-                        <br />
-                        <small className='text-secondary'>
-                            - Minimo 8 caracteres
-                            <br />
-                            - Almenos una letra Mayuscula
-                            <br />
-                            - Almenos una letra Minuscula
-                            <br />
-                            - Almenos un numero
-                            <br />
-                            - Almenos un caracter especial
-                        </small>
+                        <VerifyPasswordSmalls />
                     </div>
                     {/* <------------------------- PASSWORD 2 ---------------------------> */}
                     <div id="registerRepeatPassword">

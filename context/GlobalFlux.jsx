@@ -29,11 +29,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 
             validateData: (e, innerMessage1, innerMessage2, regex, hasError) => {
 
-                const { registerTermsAndConditions, registerRepeatPassword, registerPassword } = getStore();
+                const { registerTermsAndConditions, registerPassword } = getStore();
                 const { changeTermsAndConditions } = getActions();
 
-                //Validando el Email, Primero si esta vacio y despues con un formato de correo
-
+                //Validando los campos para que no esten vacios y que cumplan cierta condicion, dependiendo del regex que le pasemos
+                // -Los dejo separados, para tener un mejor manejo condicional 
+                // -Reset password solo necesita ser igual a password
+                // -Terminos y condiciones solo debe validar si es true.
 
                 if (e.target.name === 'registerEmail' ||
                     e.target.name === 'registerRut_number' ||
@@ -113,54 +115,32 @@ const getState = ({ getStore, getActions, setStore }) => {
             validateFormData: (e) => {
                 let hasError = false;
                 const { validateData } = getActions();
-                const { registerRepeatPassword } = getStore();
-                let { name, value } = e.target;
+                let { name } = e.target;
 
-
-                //-------------------------------------------------------------------------------
                 if (name === "registerEmail") {
-
-                    //Validando el Email, Primero si esta vacio y despues con un formato de correo
+                    //Validando el Email, primero si esta vacio y despues con un formato de correo
                     validateData(e, "El email no puede quedar vacio", "El correo debe tener un formato valido", regexCorreos, hasError)
-
-                    //-------------------------------------------------------------------------------
                 } else if (name === "registerRut_number") {
-
-                    //Validando el Rut
+                    //Validando el Rut, primero si esta vacio y despues con un formato correcto
                     validateData(e, "El Rut no puede quedar vacio", "El Rut debe ser valido", regexRut, hasError)
-
                 } else if (name === "registerFirst_name") {
-
                     //Validando el nombre
                     validateData(e, "El Nombre no puede quedar vacio", "El Nombre debe tener solo letras", regexSoloLetras, hasError)
-
-                    //-------------------------------------------------------------------------------
                 } else if (name === "registerLast_name") {
-
                     //Validando el apellido
                     validateData(e, "El apellido no puede quedar vacio", "El apellido debe tener solo letras", regexSoloLetras, hasError)
-
-                    //-------------------------------------------------------------------------------
                 } else if (name === "registerPhone_number") {
                     //Validando el numero de telefono
-
                     validateData(e, "El numero de telefono no puede quedar vacio", "El telefono debe tener solo numeros.", regexSoloNumeros, hasError)
-
-                    //-------------------------------------------------------------------------------
                 } else if (name === "registerPassword") {
-
+                    //Validando la contraseña
                     validateData(e, "Debe crear una contraseña.", "La contraseña debe tener el formato requerido.", regexSecurePassword, hasError)
-
-                    //-------------------------------------------------------------------------------
                 } else if (name === "registerRepeatPassword") {
-
+                    //Validando igualdad de contraseñas
                     validateData(e, "Debes repetir tu contraseña.", "Las contraseñas deben ser iguales", undefined, hasError)
-
-                    //-------------------------------------------------------------------------------
                 } else if (name === "registerTermsAndConditions") {
-
+                    //Validando de que se hayan aceptado los terminos
                     validateData(e, "Debes aceptar los terminos para continuar.", "", undefined, hasError)
-                    //-------------------------------------------------------------------------------
                 }
 
                 return hasError;
@@ -168,13 +148,16 @@ const getState = ({ getStore, getActions, setStore }) => {
             registerUser: async (e) => {
 
                 e.preventDefault()
+                let { registerRut_number } = getStore();
+                const { registerEmail, registerFirst_name, registerLast_name, registerPhone_number, registerPassword, registerRepeatPassword, registerTermsAndConditions } = getStore();
 
-                const { isLoading, registerEmail, registerRut_number, registerFirst_name, registerLast_name, registerPhone_number, registerPassword, registerRepeatPassword, registerTermsAndConditions } = getStore();
+                //Se debe quitar el guion para mandar la informacion al back como number
+                registerRut_number = registerRut_number.slice(0, -2) + registerRut_number.slice(-1)
 
-
+                //Ordeno la informacion para ser enviada al backend
                 const formData = {
                     email: registerEmail,
-                    rut_number: registerRut_number,
+                    rut_number: parseInt(registerRut_number),
                     first_name: registerFirst_name,
                     last_name: registerLast_name,
                     phone_number: registerPhone_number,
@@ -183,20 +166,23 @@ const getState = ({ getStore, getActions, setStore }) => {
                     terms_conditions: registerTermsAndConditions
                 }
 
+                //Por cada iteración...
                 for (const key in formData) {
                     let element = undefined;
+
+                    //Pregunto si tiene algun dato asignado a la propiedad actual de la iteración
+                    //Si es así, se guarda en la variable element
                     if (Object.hasOwnProperty.call(formData, key)) {
                         element = formData[key];
                     }
 
+                    //Si algun elemento no existe, retorna una advertencia.
                     if (element === undefined || element === null || element === "" || element === false) {
                         return toast.error('Debes llenar el formulario antes de continuar.')
                     }
                 }
 
                 setStore({ isLoading: true })
-
-                // console.log(formData)
 
                 const fetchOptions = {
                     apiURL: "http://127.0.0.1:5000/api/users/register",
@@ -215,13 +201,14 @@ const getState = ({ getStore, getActions, setStore }) => {
                     const respJson = await fetch(fetchOptions.apiURL, fetchOptions.options);
                     const data = await respJson.json();
 
-                    console.log(data)
+                    if (data.status >= 200 && data.status < 300) {
+                        toast.success("Registrado correctamente.")
+                    }
 
                 } catch (error) {
                     console.log(error)
                 } finally {
                     setStore({ isLoading: false })
-                    toast.success("Registrado correctamente.")
                 }
 
             },

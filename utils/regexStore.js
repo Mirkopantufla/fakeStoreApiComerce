@@ -16,3 +16,6 @@ export const regexRut = /^[0-9]+[-|‐]{1}[0-9kK]{1}$/;
 //- Almenos un numero
 //- Almenos un caracter especial
 export const regexSecurePassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+//-Caracteres escpeciales
+export const regexSpecialCharacters = /^[`!@#$%&^*()_+\-=\[\]{};':\\|,.<>\/?~¡"¿¬]/;
