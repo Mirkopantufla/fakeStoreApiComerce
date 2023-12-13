@@ -7,14 +7,16 @@ export const metadata = {
     description: 'Fake store with nextJS, data from fakeStoreAPI',
 }
 
+const linkClasses = 'outline outline-1 bg-neutral text-primary rounded-md hover:bg-primary hover:text-neutral p-3'
+
 const AdminLayout = ({ children }) => {
 
     return (
         <div className='py-4'>
             <h1 className='text-center text-4xl'>Seccion de Administración</h1>
-            <div className='flex justify-evenly bg-accent bg-opacity-25'>
-                <Link className='bg-neutral text-primary p-2' href={'/admin/products'}>Products</Link>
-                <Link className='bg-neutral text-primary p-2' href={'/admin/users'}>Users</Link>
+            <div className='flex justify-evenly bg-neutral py-2'>
+                <Link className={linkClasses} href={'/admin/products'}>Products</Link>
+                <Link className={linkClasses} href={'/admin/users'}>Users</Link>
             </div>
             {children}
         </div>
