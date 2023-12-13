@@ -1,5 +1,5 @@
 'use client'
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import getState from "./GlobalFlux.jsx"
 
 export const GlobalContext = createContext();
@@ -14,6 +14,14 @@ export const GlobalProvider = ({ children }) => {
             actions: { ...state.actions }
         })
     }))
+
+    useEffect(() => {
+
+        state.actions.getLocalProducts()
+
+    }, [])
+
+
 
     return (
         <GlobalContext.Provider value={state}>

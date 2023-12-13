@@ -19,11 +19,11 @@ function RootLayout({ children }) {
   return (
     <html lang="es">
       <body className={inter.className}>
-        <Navbar />
         <GlobalProvider>
+          <Navbar />
           {children}
+          <Footer />
         </GlobalProvider>
-        <Footer />
         <ToastContainer
           className='font-bold'
           position='top-center'

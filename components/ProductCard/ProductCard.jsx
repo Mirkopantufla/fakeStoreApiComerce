@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import React from 'react'
 import ProductCardButton from './ProductCardButton'
-import { BsCartPlusFill } from 'react-icons/bs'
+import AddToCartButton from './AddToCartButton'
 
 export const ProductCard = ({ product }) => {
     return (
@@ -13,7 +13,7 @@ export const ProductCard = ({ product }) => {
             </div>
             <div className="card-actions items-center justify-between px-7">
                 <div className="badge badge-outline">{product.category}</div>
-                <button className='btn btn-primary justify-self-end'><BsCartPlusFill className='text-2xl' /></button>
+                <AddToCartButton product={product} />
                 <ProductCardButton />
             </div>
         </div>

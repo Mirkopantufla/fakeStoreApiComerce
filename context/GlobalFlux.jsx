@@ -216,16 +216,16 @@ const getState = ({ getStore, getActions, setStore }) => {
 
                 const { cart } = getStore();
 
-                let isOnCart = cart.filter((item) => item.id == product.id)
+                let productsOnCart = cart.filter((item) => item.id == product.id)
 
-                if (isOnCart.length == 0) {
+                if (productsOnCart.length == 0) {
                     //Seteo en el carrito el producto
                     setStore({ cart: cart.concat(product) })
                 } else {
                     // Si ya existe en favoritos, eliminar de la lista
                     getActions().deleteFromCart(product);
                 }
-                getActions().saveLocalFavorites();
+                getActions().saveLocalStorageCartItem();
 
             },
             deleteFromCart: (product) => {
@@ -241,6 +241,10 @@ const getState = ({ getStore, getActions, setStore }) => {
                 const { cart } = getStore();
 
                 localStorage.setItem('cart', JSON.stringify(cart))
+            },
+            getLocalProducts: () => {
+                let localProducts = localStorage.getItem('cart');
+                setStore({ cart: JSON.parse(localProducts) })
             }
         }
     }
