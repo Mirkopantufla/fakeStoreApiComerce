@@ -31,7 +31,6 @@ const CartItemsIndicator = () => {
                     <div className="card-actions">
                         <Link href={'/cart'} className="btn btn-primary btn-block">View cart</Link>
                     </div>
-                    <button className='btn btn-primary' onClick={() => console.log(cart)}></button>
                 </div>
             </div>
         </div>
