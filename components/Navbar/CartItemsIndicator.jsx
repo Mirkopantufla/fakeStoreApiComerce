@@ -2,18 +2,20 @@
 import { GlobalContext } from '@/context/GlobalContext';
 import Link from 'next/link';
 import React, { useContext } from 'react'
+import { MdDelete } from "react-icons/md";
 
 const CartItemsIndicator = () => {
 
-    const { store: { cart } } = useContext(GlobalContext)
+    const { store: { cart }, actions } = useContext(GlobalContext)
 
     const calculateTotalPrice = () => {
         let totalPrice = 0;
 
         cart.map((item) => totalPrice += item.price)
 
-        return totalPrice;
+        return totalPrice.toFixed(2);
     }
+
 
     return (
         <div className="dropdown dropdown-end">
@@ -23,22 +25,24 @@ const CartItemsIndicator = () => {
                     <span className="badge badge-sm indicator-item">{cart.length}</span>
                 </div>
             </label>
-            <div tabIndex={0} className="mt-3 z-[1] card card-compact dropdown-content w-72 bg-base-100 shadow border-2 border-primary">
+            <div tabIndex={0} className="mt-3 z-[1] card card-compact dropdown-content w-96 bg-base-100 shadow border-2 border-primary">
                 <div className="card-body">
                     {
                         cart.map((item) => {
                             return (
-                                <Link href={`/products/${item.id}`} className='flex p-2 mb-2 border border-primary rounded-md hover:scale-95'>
-                                    <div>
-                                        <img className='min-w-[65px] max-w-[65px] min-h-[80px] max-h-[80px] me-5' src={item.image} alt="" />
-                                    </div>
-
-                                    <div className='flex flex-col items-center justify-center'>
-                                        <span className=' leading-8 line-clamp-1'>{item.title}</span>
-                                        <div className='divider lg:divider-horizontal'></div>
-                                        <span className='font-bold'>{`$${item.price}`}</span>
-                                    </div>
-                                </Link>
+                                <div className='flex items-center justify-between p-2 mb-2 border border-primary rounded-md hover:bg-primary hover:bg-opacity-10 active:scale-95'>
+                                    <Link className='flex' href={`/products/${item.id}`}>
+                                        <div>
+                                            <img className='min-w-[65px] max-w-[65px] min-h-[80px] max-h-[80px] me-5' src={item.image} alt="" />
+                                        </div>
+                                        <div className='flex flex-col items-center justify-center'>
+                                            <span className=' leading-8 line-clamp-1'>{item.title}</span>
+                                            <div className='divider lg:divider-horizontal'></div>
+                                            <span className='font-bold'>{`$${item.price}`}</span>
+                                        </div>
+                                    </Link>
+                                    <div onClick={() => actions.deleteFromCart(item)} className='bg-primary border-2 text-black p-2 cursor-pointer hover:bg-error active:scale-95'><MdDelete className='text-3xl' /></div>
+                                </div>
                             )
                         })
                     }
