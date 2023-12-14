@@ -7,6 +7,14 @@ const CartItemsIndicator = () => {
 
     const { store: { cart } } = useContext(GlobalContext)
 
+    const calculateTotalPrice = () => {
+        let totalPrice = 0;
+
+        cart.map((item) => totalPrice += item.price)
+
+        return totalPrice;
+    }
+
     return (
         <div className="dropdown dropdown-end">
             <label tabIndex={0} className="btn btn-ghost btn-circle">
@@ -15,25 +23,32 @@ const CartItemsIndicator = () => {
                     <span className="badge badge-sm indicator-item">{cart.length}</span>
                 </div>
             </label>
-            <div tabIndex={0} className="mt-3 z-[1] card card-compact dropdown-content w-52 bg-base-100 shadow">
+            <div tabIndex={0} className="mt-3 z-[1] card card-compact dropdown-content w-72 bg-base-100 shadow border-2 border-primary">
                 <div className="card-body">
                     {
                         cart.map((item) => {
                             return (
-                                <Link href={`/products/${item.id}`} className='p-2 mb-2 border border-primary rounded-md text-ellipsis overflow-hidden'>
-                                    {item.title}
+                                <Link href={`/products/${item.id}`} className='flex p-2 mb-2 border border-primary rounded-md hover:scale-95'>
+                                    <div>
+                                        <img className='min-w-[65px] max-w-[65px] min-h-[80px] max-h-[80px] me-5' src={item.image} alt="" />
+                                    </div>
+
+                                    <div className='flex flex-col items-center justify-center'>
+                                        <span className=' leading-8 line-clamp-1'>{item.title}</span>
+                                        <div className='divider lg:divider-horizontal'></div>
+                                        <span className='font-bold'>{`$${item.price}`}</span>
+                                    </div>
                                 </Link>
                             )
-
                         })
                     }
-                    <span className="text-info">Subtotal: $999</span>
+                    <span className="text-info">{`Subtotal: $${calculateTotalPrice()}`}</span>
                     <div className="card-actions">
                         <Link href={'/cart'} className="btn btn-primary btn-block">View cart</Link>
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 

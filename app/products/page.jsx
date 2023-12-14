@@ -13,6 +13,7 @@ const Products = () => {
     const [categories, setCategories] = useState([]);
     const [selected, setSelected] = useState("");
     const [showProducts, setShowProducts] = useState([])
+    const categoriesClasses = 'flex items-center justify-center font-bold text-lg bg-primary text-black h-9 cursor-pointer hover:scale-95 hover:underline hover:decoration-2';
 
     useEffect(() => {
 
@@ -53,16 +54,16 @@ const Products = () => {
     return (
         <main>
             <div className='col-span-12 flex flex-col justify-center items-center border-y-2 border-primary mb-3 p-3'>
-                <h1 className='font-bold text-3xl'>Filter by Category</h1>
-                <ul className='flex flex-wrap justify-center'>
-                    <li className='mx-4 my-2'>
-                        <button onClick={() => setSelected("")} className='btn btn-primary h-9'>All</button>
+                <h1 className='font-bold text-3xl'>Categorias</h1>
+                <ul className='flex justify-between w-screen'>
+                    <li className='flex-1 items-center mx-4 my-2 '>
+                        <div onClick={() => setSelected("")} className={categoriesClasses}>All</div>
                     </li>
                     {
                         categories.map((cat) => {
                             return (
-                                <li key={cat} className='mx-4 my-2'>
-                                    <button onClick={() => setSelected(`/category/${cat}`)} className='btn btn-primary h-9'>{cat}</button>
+                                <li key={cat} className='flex-1 mx-4 my-2'>
+                                    <div onClick={() => setSelected(`/category/${cat}`)} className={categoriesClasses}>{cat}</div>
                                 </li>
                             )
                         })
