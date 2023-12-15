@@ -1,18 +1,17 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# fakeStoreApiComerce
+### Proyecto hecho con Next 13, JavaScript, HMTL y CSS
+Comercio con api publica https://fakestoreapi.com/
+<br>
+
+Este es un [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
 
-First, run the development server:
+Primero, hay que correr el servidor de desarrollo:
 
 ```bash
 npm run dev
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
 ## Learn More
 
@@ -20,16 +19,27 @@ create-next-app@13.4.19
 To learn more about Next.js, take a look at the following resources:
 
 - [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
 
-# fakeStoreApiComerce
-Comercio con api publica https://fakestoreapi.com/
+
+## Librerias utilizadas
+
+- React-Icons: https://react-icons.github.io/react-icons/
+- 
+- Tailwind CSS 3.3.3  [doc](https://tailwindcss.com/docs/installation)
+- Daisyui 4.4.19  [doc](https://tailwindcss.com/docs/installation)
+
+
+## Instalación Local
+
+Descarga el proyecto usando git
+```
+$ git clone https://github.com/Mirkopantufla/nextjs-tailwind-fake-store.git
+$ cd nextjs-tailwind-fake-store
+```
+
+## Como empiezo el proyecto?
+
+- Instala los paquetes con `$ npm install`.
+- Corre la aplicación con `$ npm run dev`
+
