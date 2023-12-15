@@ -16,18 +16,17 @@ npm run dev
 ## Learn More
 
 create-next-app@13.4.19
-To learn more about Next.js, take a look at the following resources:
+Para aprender mas sobre Next.js, echa un vistazo a la documentación oficial de next:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-
+- [Next.js Documentation](https://nextjs.org/docs) - Aprenda sobre las caracteristicas de Next.js y su API.
 
 
 ## Librerias utilizadas
 
-- React-Icons: https://react-icons.github.io/react-icons/
-- 
-- Tailwind CSS 3.3.3  [doc](https://tailwindcss.com/docs/installation)
-- Daisyui 4.4.19  [doc](https://tailwindcss.com/docs/installation)
+- React-Icons: v4.11.0 [doc](https://react-icons.github.io/react-icons/)
+- React-Toastify: v9.1.3 [doc](https://fkhadra.github.io/react-toastify/introduction/)
+- Tailwind: CSS v3.3.3  [doc](https://tailwindcss.com/docs/installation)
+- Daisyui: v4.4.19  [doc](https://tailwindcss.com/docs/installation)
 
 
 ## Instalación Local
