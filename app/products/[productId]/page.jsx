@@ -1,5 +1,6 @@
 import React from 'react'
 import ProductClientButton from './_components/ProductClientButton';
+import ClientAddToCart from '@/components/Products/ProductsId/ClientAddToCart';
 
 
 const fetchProduct = async (id) => {
@@ -33,9 +34,11 @@ const ProductDisplay = async ({ params }) => {
                     </div>
 
                     <p className='border-2 p-10 my-4 rounded-xl border-neutral'>
-                        <h1 className='text-center text-3xl font-bold mb-2'>Descripción</h1>
+                        {/* <h1 className='text-center text-3xl font-bold mb-2'>Descripción</h1> */}
                         {product.description}
                     </p>
+
+                    <ClientAddToCart item={product} />
                 </div>
             </div></>
     )

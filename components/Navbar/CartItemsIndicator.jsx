@@ -30,7 +30,7 @@ const CartItemsIndicator = () => {
                     {
                         cart.map((item) => {
                             return (
-                                <div className='flex items-center justify-between p-2 mb-2 border border-primary rounded-md hover:bg-primary hover:bg-opacity-10 active:scale-95'>
+                                <div key={item.id} className='flex items-center justify-between p-2 mb-2 border border-primary rounded-md hover:bg-primary hover:bg-opacity-10 active:scale-95'>
                                     <Link className='flex' href={`/products/${item.id}`}>
                                         <div>
                                             <img className='min-w-[65px] max-w-[65px] min-h-[80px] max-h-[80px] me-5' src={item.image} alt="" />
@@ -41,7 +41,7 @@ const CartItemsIndicator = () => {
                                             <span className='font-bold'>{`$${item.price}`}</span>
                                         </div>
                                     </Link>
-                                    <div onClick={() => actions.deleteFromCart(item)} className='bg-primary border-2 text-black p-2 cursor-pointer hover:bg-error active:scale-95'><MdDelete className='text-3xl' /></div>
+                                    <div onClick={() => actions.deleteFromCart(item)} className='bg-primary border-2 text-black p-2 cursor-pointer hover:bg-opacity-80'><MdDelete className='text-3xl' /></div>
                                 </div>
                             )
                         })

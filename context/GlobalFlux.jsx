@@ -221,6 +221,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                 if (productsOnCart.length == 0) {
                     //Seteo en el carrito el producto
                     setStore({ cart: cart.concat(product) })
+                    toast.success(`${product.title} agregado al carrito`, { position: "top-right", autoClose: 1000 })
                 } else {
                     // Si ya existe en favoritos, eliminar de la lista
                     getActions().deleteFromCart(product);
@@ -233,6 +234,8 @@ const getState = ({ getStore, getActions, setStore }) => {
                 const { cart } = getStore();
 
                 setStore({ cart: cart.filter(item => item.id !== product.id) })
+
+                toast.warning(`${product.title} quitado del carrito`, { position: "top-right", autoClose: 1000 })
 
                 getActions().saveLocalStorageCartItem();
 
