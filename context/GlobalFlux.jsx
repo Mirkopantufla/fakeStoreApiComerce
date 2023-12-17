@@ -1,7 +1,7 @@
 'use client'
 
 import { regexCorreos, regexRut, regexSecurePassword, regexSoloLetras, regexSoloNumeros } from "@/utils/regexStore";
-import { toast } from "react-toastify";
+import { toast, Flip } from "react-toastify";
 
 const getState = ({ getStore, getActions, setStore }) => {
     return {
@@ -221,7 +221,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                 if (productsOnCart.length == 0) {
                     //Seteo en el carrito el producto
                     setStore({ cart: cart.concat(product) })
-                    toast.success(`${product.title} agregado al carrito`, { position: "top-right", autoClose: 1000 })
+                    toast.success(`${product.title} agregado al carrito`, { position: "top-right", autoClose: 1500, transition: Flip })
                 } else {
                     // Si ya existe en favoritos, eliminar de la lista
                     getActions().deleteFromCart(product);
@@ -235,7 +235,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
                 setStore({ cart: cart.filter(item => item.id !== product.id) })
 
-                toast.warning(`${product.title} quitado del carrito`, { position: "top-right", autoClose: 1000 })
+                toast.warning(`${product.title} quitado del carrito`, { position: "top-right", autoClose: 1500, transition: Flip })
 
                 getActions().saveLocalStorageCartItem();
 
