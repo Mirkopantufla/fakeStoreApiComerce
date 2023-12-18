@@ -93,16 +93,16 @@ const getState = ({ getStore, getActions, setStore }) => {
                     }
 
                 } else {
-                    let terms = document.getElementById("smallRegisterTermsAndConditions");
+                    let smallTerms = document.getElementById("smallRegisterTermsAndConditions");
 
                     if (registerTermsAndConditions === false) {
-                        terms.classList.remove("hidden")
-                        terms.classList.add("hidden")
+                        smallTerms.classList.remove("hidden")
+                        smallTerms.classList.add("hidden")
                         hasError = true;
                         changeTermsAndConditions()
                         return hasError;
                     } else {
-                        terms.classList.remove("hidden")
+                        smallTerms.classList.remove("hidden")
                         hasError = false;
                         changeTermsAndConditions()
                         return hasError;

@@ -3,4 +3,23 @@
 @tailwind utilities;
 
 
-body {}
+
+.bounceAnimation {
+    animation-name: bounceAnimation;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes bounceAnimation {
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}

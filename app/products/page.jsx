@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import { ProductCard } from '../../components/ProductCard/ProductCard.jsx'
 import Carrousel from '../../components/Products/Carrousel.jsx'
+import { fakeURL } from '@/utils/paths.js'
 
 //Pagina de Productos
 export const metadata = {
@@ -31,21 +32,21 @@ const Products = () => {
 
     const chargeCategoryProducts = async () => {
 
-        const responseJson = await fetch(`https://fakestoreapi.com/products${selected}`)
+        const responseJson = await fetch(`${fakeURL}/products${selected}`)
         const responseCategoriesData = await responseJson.json()
 
         setShowProducts([...responseCategoriesData])
     }
 
     const cargarDatos = async () => {
-        const responseProducts = await fetch(`https://fakestoreapi.com/products`)
+        const responseProducts = await fetch(`${fakeURL}/products`)
         const products = await responseProducts.json()
 
         setShowProducts([...products])
     }
 
     const cargarCategorias = async () => {
-        const responseCategories = await fetch(`https://fakestoreapi.com/products/categories`)
+        const responseCategories = await fetch(`${fakeURL}/products/categories`)
         const categories = await responseCategories.json()
 
         setCategories([...categories])

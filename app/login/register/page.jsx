@@ -75,7 +75,7 @@ const page = () => {
                         />
                         <small className='hidden text-red-500'></small>
                     </div>
-                    {/* <------------------------- PHONE NUMBER ---------------------------> */}
+                    {/* <------------------------- PHONE_NUMBER ---------------------------> */}
                     <div className='flex flex-col' id="registerPhone_number">
                         <label className='font-bold text-lg'>Numero de Telefono</label>
                         <input
@@ -144,7 +144,7 @@ const page = () => {
 
             </form>
 
-            {/* -------------------------------------- MODAL DIALOG -------------------------------------- */}
+            {/* -------------------------------------- MODAL DIALOG (TERMINOS Y CONDICIONES) -------------------------------------- */}
             <dialog id="my_modal_2" className="modal">
                 <div className="modal-box">
                     <h3 className="font-bold text-lg">Terminos y Condiciones</h3>

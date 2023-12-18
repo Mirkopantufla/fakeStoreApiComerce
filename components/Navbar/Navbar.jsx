@@ -14,7 +14,7 @@ const Navbar = () => {
                 <li className='border border-primary rounded-3xl'><Link className='text-xl' href="/products">Productos</Link></li>
             </ul>
             <div className="navbar-end">
-                <Link href={'/admin/products'} className='btn btn-accent me-2'>ADMIN</Link>
+                <Link href={'/admin'} className='btn btn-accent me-2'>ADMIN</Link>
                 <ThemeClientButton />
                 <CartItemsIndicator />
                 <div>

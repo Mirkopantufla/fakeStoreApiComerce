@@ -2,7 +2,9 @@ import React from 'react'
 
 const adminProductsAdd = () => {
     return (
-        <div>AGREGAR</div>
+        <form action='' >
+            AGREGAR
+        </form>
     )
 }
 
