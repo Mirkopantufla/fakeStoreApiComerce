@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import React from 'react'
 
-
 export const metadata = {
     title: 'Admin Fake Store',
     description: 'Fake store with nextJS, data from fakeStoreAPI',
@@ -16,7 +15,7 @@ const AdminLayout = ({ children }) => {
         <div className='pt-4'>
             <h1 className='text-center text-4xl'>Seccion de Administración</h1>
             <ul className='flex bg-opacity-25 mt-4'>
-                <li className={liClass}><Link className={linkClass} href={'/admin/products'}>Products</Link></li>
+                <li className={`${liClass} `}><Link className={linkClass} href={'/admin/products'}>Products</Link></li>
                 <li className={liClass}><Link className={linkClass} href={'/admin/users'}>Users</Link></li>
             </ul>
             {children}

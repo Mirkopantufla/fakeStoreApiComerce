@@ -12,6 +12,8 @@ const adminProductsSeatch = () => {
     const [searchParam, setSearchParam] = useState("");
     const [searchFilter, setSearchFilter] = useState("id")
     const [isLoading, setIsLoading] = useState(false);
+    const [foundedProduct, setFoundedProduct] = useState(null);
+
 
     const searchIdProduct = async (e) => {
         e.preventDefault()
@@ -19,21 +21,29 @@ const adminProductsSeatch = () => {
         setIsLoading(true)
         try {
 
-            if (validateSearchFilters(searchFilter, searchParam) === true) {
+            if (validateSearchFilters(searchFilter, searchParam)) {
                 return;
             }
 
             const responseJson = await fetch(`${baseURL}/products/${searchParam}`)
             const data = await responseJson.json();
-            return data;
+
+            if (data.warning) {
+                toast.warning('Producto Inexistente')
+                setFoundedProduct(null)
+            } else {
+                console.log(data)
+                setFoundedProduct(data)
+                return data;
+            }
+
 
         } catch (error) {
             toast.error('error ' + error)
         } finally {
             setIsLoading(false)
         }
-        // console.log(searchFilter)
-        // console.log(searchParam)
+
     };
 
     const validateSearchFilters = (filter, param) => {
@@ -79,40 +89,66 @@ const adminProductsSeatch = () => {
 
     }
 
-
     return (
-        <form onSubmit={searchIdProduct} className='flex flex-col items-center py-2 min-h-[60vh] gap-5'>
+        <div className='flex flex-col items-center'>
+            <form onSubmit={searchIdProduct} className='flex flex-col items-stretch py-2 min-h-[25vh] gap-5'>
 
-            <h1 className='text-4xl' htmlFor="">Buscar por:</h1>
-            <div className="flex w-1/4">
+                <h1 className='text-4xl text-center' htmlFor="">Buscar por:</h1>
+                <div className='flex'>
 
-                <div className='flex flex-col items-center w-1/3'>
-                    <label className="label-text">ID</label>
-                    <input onClick={(e) => setSearchFilter(e.target.value)} value="id" type="radio" name="radio-2" className="radio radio-primary" />
+                    <div className='flex flex-col items-center w-1/3'>
+                        <label className="label-text">ID</label>
+                        <input onClick={(e) => setSearchFilter(e.target.value)} value="id" type="radio" name="radio-2" className="radio radio-primary" />
+                    </div>
+
+                    <div className='flex flex-col items-center w-1/3'>
+                        <label className="label-text">Nombre</label>
+                        <input onClick={(e) => setSearchFilter(e.target.value)} value="title" type="radio" name="radio-2" className="radio radio-primary" />
+                    </div>
+
+                    <div className='flex flex-col items-center w-1/3'>
+                        <label className="label-text">Categoria</label>
+                        <input onClick={(e) => setSearchFilter(e.target.value)} value="category" type="radio" name="radio-2" className="radio radio-primary" />
+                    </div>
+
                 </div>
+                <div className='flex'>
+                    <input onChange={(e) => setSearchParam(e.target.value)} type="text" placeholder="Busqueda..." className="text-center input input-bordered input-primary w-full max-w-xs" />
+                    <button className='btn btn-primary'>
+                        {
+                            !isLoading ? <FaMagnifyingGlass /> : <span className="loading loading-spinner text-secondary"></span>
+                        }
 
-                <div className='flex flex-col items-center w-1/3'>
-                    <label className="label-text">Nombre</label>
-                    <input onClick={(e) => setSearchFilter(e.target.value)} value="title" type="radio" name="radio-2" className="radio radio-primary" />
+                    </button>
                 </div>
+            </form>
+            {
+                foundedProduct ?
+                    <form className='flex flex-col justify-center items-center border border-neutral w-[60vw] py-10 mb-10 gap-5'>
+                        <h3 className='text-3xl'>Producto Encontrado</h3>
 
-                <div className='flex flex-col items-center w-1/3'>
-                    <label className="label-text">Categoria</label>
-                    <input onClick={(e) => setSearchFilter(e.target.value)} value="category" type="radio" name="radio-2" className="radio radio-primary" />
-                </div>
+                        <div className='flex flex-col items-center w-full'>
+                            <label htmlFor="">Nombre del producto</label>
+                            <input className="text-center input input-bordered input-primary w-full max-w-lg mt-1" type="text" defaultValue={foundedProduct.title} />
+                        </div>
+                        <div className='flex flex-col items-center w-full'>
+                            <label htmlFor="">Precio</label>
+                            <input className="text-center input input-bordered input-primary w-full max-w-lg mt-1" type="text" defaultValue={foundedProduct.price} />
+                        </div>
+                        <div className='flex flex-col items-center w-full'>
+                            <label htmlFor="">Descripción</label>
+                            <textarea className="textarea text-center input-bordered textarea-primary w-full max-w-lg mt-1" type="text" defaultValue={foundedProduct.description} rows={6} />
+                        </div>
+                        <div className='flex flex-col items-center w-full'>
+                            <label htmlFor="">Categoria</label>
+                            <input className="text-center input input-bordered input-primary w-full max-w-lg mt-1" type="text" defaultValue={foundedProduct.category} />
+                        </div>
 
-            </div>
-            <div className='flex'>
-                <input onChange={(e) => setSearchParam(e.target.value)} type="text" placeholder="Busqueda..." className="text-center input input-bordered input-primary w-full max-w-xs" />
-                <button className='btn btn-primary'>
-                    {
-                        !isLoading ? <FaMagnifyingGlass /> : <span className="loading loading-spinner text-secondary"></span>
-                    }
+                    </form>
+                    :
+                    null
+            }</div>
 
-                </button>
-            </div>
-
-        </form>
     )
 }
 
