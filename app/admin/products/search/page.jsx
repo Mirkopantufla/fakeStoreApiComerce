@@ -46,7 +46,7 @@ const adminProductsSeatch = () => {
 
     };
 
-    const validateSearchFilters = (filter, param) => {
+    const validateSearchFilters = (filter, value) => {
 
         let hasError = false;
 
@@ -56,11 +56,11 @@ const adminProductsSeatch = () => {
 
         } else if (filter === 'id') {
 
-            if (param === "" || param === undefined) {
+            if (value === "" || value === undefined) {
                 hasError = true;
                 toast.warning('No puedes buscar si el campo esta vacio!')
                 return hasError;
-            } else if (!regexSoloNumeros.test(param)) {
+            } else if (!regexSoloNumeros.test(value)) {
                 hasError = true;
                 toast.warning('Si buscas por id, deben ser solo numeros!')
                 return hasError;
@@ -71,11 +71,11 @@ const adminProductsSeatch = () => {
 
         } else if (filter === 'title') {
 
-            if (param === "" || param === undefined) {
+            if (value === "" || value === undefined) {
                 hasError = true;
                 toast.warning('No puedes buscar si el campo esta vacio!')
                 return hasError;
-            } else if (!regexSoloLetras.test(param)) {
+            } else if (!regexSoloLetras.test(value)) {
                 hasError = true;
                 toast.warning('Si buscas por nombre, deben ser solo letras!')
                 return hasError;
