@@ -1,24 +1,21 @@
 "use client"
 
-import { GlobalContext } from '@/context/GlobalContext';
+import { baseURL } from '@/utils/paths';
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import React, { useContext } from 'react'
+import React from 'react'
 import { toast } from 'react-toastify';
 
 //LOGIN PAGE
 const LoginPage = () => {
 
     const router = useRouter();
-    const { store } = useContext(GlobalContext)
 
     const onSubmit = async (e) => {
         e.preventDefault()
 
         const email = e.target.email.value;
         const password = e.target.password.value;
-
-        const baseUrl = 'http://127.0.0.1:5000/api'
 
         const options = {
             method: 'POST',
@@ -31,7 +28,7 @@ const LoginPage = () => {
             },
         }
 
-        const respJson = await fetch(`${baseUrl}/login`, options)
+        const respJson = await fetch(`${baseURL}/login`, options)
         const data = await respJson.json();
 
         if (data?.status === 200) {
@@ -53,7 +50,7 @@ const LoginPage = () => {
                 <div className='divider border-white before:bg-neutral after:bg-neutral' />
                 <label placeholder='Your User' className='label'>Username</label>
                 <input
-                    className='input input-bordered w-full max-w-xs'
+                    className='input input-bordered w-full max-w-xs text-center'
                     placeholder='correo@correo.cl'
                     type="email"
                     name="email"
@@ -61,7 +58,7 @@ const LoginPage = () => {
                 />
                 <label className='label'>Constraseña</label>
                 <input
-                    className='input input-bordered w-full max-w-xs'
+                    className='input input-bordered w-full max-w-xs text-center'
                     placeholder='********'
                     type="password"
                     name="password"

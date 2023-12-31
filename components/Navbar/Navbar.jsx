@@ -14,29 +14,30 @@ const Navbar = () => {
                 <li className='border border-primary rounded-3xl'><Link className='text-xl' href="/products">Productos</Link></li>
             </ul>
             <div className="navbar-end">
-                <Link href={'/admin'} className='btn btn-accent me-2'>ADMIN</Link>
                 <ThemeClientButton />
                 <CartItemsIndicator />
                 <div>
-                    <Link href={'/login'} className='btn btn-primary mx-2'>Iniciar Sesión</Link>
+
                 </div>
-                {/* <div className="dropdown dropdown-end">
+                <div className="dropdown dropdown-end">
                     <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                         <div className="relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
                             <svg className="absolute w-12 h-12 text-gray-400 -left-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd"></path></svg>
                         </div>
                     </label>
                     <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+                        <li><Link href={'/login'} >Iniciar Sesión</Link></li>
                         <li>
                             <a className="justify-between">
                                 Profile
                                 <span className="badge">New</span>
                             </a>
                         </li>
+                        <li><Link href={'/admin'}>ADMIN</Link></li>
                         <li><a>Settings</a></li>
                         <li><a>Logout</a></li>
                     </ul>
-                </div> */}
+                </div>
             </div>
         </nav>
     )

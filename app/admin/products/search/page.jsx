@@ -33,7 +33,7 @@ const adminProductsSeatch = () => {
                 setFoundedProduct(null)
             } else {
                 console.log(data)
-                setFoundedProduct(data)
+                setFoundedProduct(data.product)
                 return data;
             }
 
@@ -113,7 +113,7 @@ const adminProductsSeatch = () => {
 
                 </div>
                 <div className='flex'>
-                    <input onChange={(e) => setSearchParam(e.target.value)} type="text" placeholder="Busqueda..." className="text-center input input-bordered input-primary w-full max-w-xs" />
+                    <input onChange={(e) => setSearchParam(e.target.value)} type="text" placeholder="Busqueda..." className="text-center input input-bordered input-primary w-full max-w-xs me-3" />
                     <button className='btn btn-primary'>
                         {
                             !isLoading ? <FaMagnifyingGlass /> : <span className="loading loading-spinner text-secondary"></span>
@@ -124,24 +124,34 @@ const adminProductsSeatch = () => {
             </form>
             {
                 foundedProduct ?
-                    <form className='flex flex-col justify-center items-center border border-neutral w-[60vw] py-10 mb-10 gap-5'>
-                        <h3 className='text-3xl'>Producto Encontrado</h3>
+                    <form className='form-control justify-center items-center border border-neutral w-[80vw] sm:w-[70vw] px-5 py-10 mb-10 gap-5'>
+                        <h3 className='text-3xl font-bold'>Producto Encontrado</h3>
 
                         <div className='flex flex-col items-center w-full'>
-                            <label htmlFor="">Nombre del producto</label>
-                            <input className="text-center input input-bordered input-primary w-full max-w-lg mt-1" type="text" defaultValue={foundedProduct.title} />
+                            <label className='text-lg font-bold' htmlFor="">Nombre del producto</label>
+                            <input className="text-center input input-bordered input-primary w-full max-w-lg mt-1" type="text" defaultValue={foundedProduct?.title} />
                         </div>
                         <div className='flex flex-col items-center w-full'>
-                            <label htmlFor="">Precio</label>
-                            <input className="text-center input input-bordered input-primary w-full max-w-lg mt-1" type="text" defaultValue={foundedProduct.price} />
+                            <label className='text-lg font-bold' htmlFor="">Precio</label>
+                            <input className="text-center input input-bordered input-primary w-full max-w-lg mt-1" type="text" defaultValue={foundedProduct?.price} />
                         </div>
                         <div className='flex flex-col items-center w-full'>
-                            <label htmlFor="">Descripción</label>
-                            <textarea className="textarea text-center input-bordered textarea-primary w-full max-w-lg mt-1" type="text" defaultValue={foundedProduct.description} rows={6} />
+                            <label className='text-lg font-bold' htmlFor="">Descripción</label>
+                            <textarea className="textarea text-center input-bordered textarea-primary w-full max-w-lg mt-1" type="text" defaultValue={foundedProduct?.description} rows={6} />
                         </div>
                         <div className='flex flex-col items-center w-full'>
-                            <label htmlFor="">Categoria</label>
-                            <input className="text-center input input-bordered input-primary w-full max-w-lg mt-1" type="text" defaultValue={foundedProduct.category} />
+                            <label className='text-lg font-bold' htmlFor="">Categoria</label>
+                            <input className="text-center input input-bordered input-primary w-full max-w-lg mt-1" type="text" defaultValue={foundedProduct?.category} />
+                        </div>
+                        <div className='flex flex-col items-center w-full'>
+                            <label className='text-lg font-bold' htmlFor="">Imagenes</label>
+                            {
+                                foundedProduct?.images.map((image) => {
+                                    return (
+                                        <img src={image.src_imagen} alt="" />
+                                    )
+                                })
+                            }
                         </div>
 
                     </form>
