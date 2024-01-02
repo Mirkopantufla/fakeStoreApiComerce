@@ -1,10 +1,10 @@
-import React from 'react'
+"use client"
+import ImageModal from '@/components/Admin/Products/Add/ImageModal';
+import React, { useState } from 'react'
 
 const adminProductsAdd = () => {
 
-    const addProduct = () => {
-
-    }
+    const [photos, setPhotos] = useState([]);
 
     return (
         <div className='form-control items-center'>
@@ -29,10 +29,52 @@ const adminProductsAdd = () => {
                 </div>
                 <div className='flex flex-col items-center w-full'>
                     <label className='text-lg font-bold' htmlFor="">Imagenes</label>
-                    <input className="file-input file-input-bordered file-input-primary w-full max-w-xs" type="file" multiple="multiple" />
+                    <input
+                        onChange={(e) => {
+                            setPhotos(Array.prototype.slice.call(e.target.files))
+                        }}
+                        className="file-input file-input-bordered file-input-primary w-full max-w-xs"
+                        type="file"
+                        multiple />
+                </div>
+                <div className={`flex flex-wrap justify-center gap-6 ${photos.length > 0 ? "border border-neutral p-5" : ""}`}>
+                    {
+                        photos ?
+                            photos.map((photo, index) => {
+                                return (
+                                    <>
+                                        <img
+                                            key={`prev-image-viewer-${index}`}
+                                            id={`prev-image-viewer-${index}`}
+                                            onClick={() => document.getElementById(`my_image_viewer_modal`).showModal()}
+                                            className='w-[30%] m-auto border border-3 rounded-3 border-dark cursor-pointer'
+                                            src={URL.createObjectURL(photo)}
+                                            alt=""
+                                        />
+
+                                        <dialog id="my_image_viewer_modal" className="modal">
+                                            <div className="modal-box">
+                                                <img className='w-[80vw]' src={URL.createObjectURL(photo)} alt="" />
+                                            </div>
+                                            <form method="dialog" className="modal-backdrop">
+                                                <button>close</button>
+                                            </form>
+                                        </dialog>
+                                    </>
+
+
+                                )
+                            })
+                            :
+                            null
+                    }
                 </div>
 
+                <button type='button' onClick={(e) => console.log(photos)} className='text-center btn btn-primary'>PRUEBAS</button>
+
             </form>
+
+
         </div>
     )
 }
