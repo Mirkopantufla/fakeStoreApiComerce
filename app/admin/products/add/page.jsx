@@ -1,5 +1,4 @@
 "use client"
-import ImageModal from '@/components/Admin/Products/Add/ImageModal';
 import React, { useState } from 'react'
 
 const adminProductsAdd = () => {
@@ -37,7 +36,7 @@ const adminProductsAdd = () => {
                         type="file"
                         multiple />
                 </div>
-                <div className={`flex flex-wrap justify-center gap-6 ${photos.length > 0 ? "border border-neutral p-5" : ""}`}>
+                <div className={`flex gap-6 overflow-x-auto ${photos.length > 0 ? "border border-neutral p-5" : ""}`}>
                     {
                         photos ?
                             photos.map((photo, index) => {
@@ -46,18 +45,18 @@ const adminProductsAdd = () => {
                                         <img
                                             key={`prev-image-viewer-${index}`}
                                             id={`prev-image-viewer-${index}`}
-                                            onClick={() => document.getElementById(`my_image_viewer_modal`).showModal()}
+                                            onClick={() => document.getElementById(`my_image_viewer_modal_${index}`).showModal()}
                                             className='w-[30%] m-auto border border-3 rounded-3 border-dark cursor-pointer'
                                             src={URL.createObjectURL(photo)}
                                             alt=""
                                         />
 
-                                        <dialog id="my_image_viewer_modal" className="modal">
-                                            <div className="modal-box">
-                                                <img className='w-[80vw]' src={URL.createObjectURL(photo)} alt="" />
+                                        <dialog id={`my_image_viewer_modal_${index}`} className="modal">
+                                            <div className="modal-box" style={{ maxWidth: "1000px" }}>
+                                                <img src={URL.createObjectURL(photo)} alt="" />
                                             </div>
                                             <form method="dialog" className="modal-backdrop">
-                                                <button>close</button>
+                                                <button className='cursor-default'>close</button>
                                             </form>
                                         </dialog>
                                     </>
@@ -69,8 +68,6 @@ const adminProductsAdd = () => {
                             null
                     }
                 </div>
-
-                <button type='button' onClick={(e) => console.log(photos)} className='text-center btn btn-primary'>PRUEBAS</button>
 
             </form>
 
