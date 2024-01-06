@@ -6,7 +6,7 @@ import { FaMagnifyingGlass } from "react-icons/fa6";
 import { toast } from 'react-toastify';
 
 //Search page
-// admin/products/add
+//   /admin/products/add
 const adminProductsSeatch = () => {
 
     const [searchParam, setSearchParam] = useState("");
@@ -91,9 +91,9 @@ const adminProductsSeatch = () => {
 
     return (
         <div className='flex flex-col items-center'>
-            <form onSubmit={searchIdProduct} className='flex flex-col items-stretch py-2 min-h-[25vh] gap-5'>
+            <form onSubmit={searchIdProduct} className='flex flex-col items-stretch py-5 min-h-[56vh] gap-5'>
 
-                <h1 className='text-4xl text-center' htmlFor="">Buscar por:</h1>
+                <h1 className='text-4xl text-center' htmlFor="">Filter by:</h1>
                 <div className='flex'>
 
                     <div className='flex flex-col items-center w-1/3'>
@@ -116,7 +116,7 @@ const adminProductsSeatch = () => {
                     <input onChange={(e) => setSearchParam(e.target.value)} type="text" placeholder="Busqueda..." className="text-center input input-bordered input-primary w-full max-w-xs me-3" />
                     <button className='btn btn-primary'>
                         {
-                            !isLoading ? <FaMagnifyingGlass /> : <span className="loading loading-spinner text-secondary"></span>
+                            !isLoading ? <FaMagnifyingGlass /> : <span className="loading loading-spinner text-neutral"></span>
                         }
 
                     </button>

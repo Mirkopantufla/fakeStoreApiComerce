@@ -36,6 +36,8 @@ const adminProductsAdd = () => {
                         type="file"
                         multiple />
                 </div>
+
+                {/* Seccion contenedora de previsualizacion de imagenes */}
                 <div className={`flex gap-6 overflow-x-auto ${photos.length > 0 ? "border border-neutral p-5" : ""}`}>
                     {
                         photos ?
@@ -50,7 +52,7 @@ const adminProductsAdd = () => {
                                             src={URL.createObjectURL(photo)}
                                             alt=""
                                         />
-
+                                        {/* Se genera un dialogo para cada imagen, y asi llamarlos por su id  */}
                                         <dialog id={`my_image_viewer_modal_${index}`} className="modal">
                                             <div className="modal-box" style={{ maxWidth: "1000px" }}>
                                                 <img src={URL.createObjectURL(photo)} alt="" />
@@ -60,8 +62,6 @@ const adminProductsAdd = () => {
                                             </form>
                                         </dialog>
                                     </>
-
-
                                 )
                             })
                             :
