@@ -6,12 +6,12 @@ import CartItemsIndicator from './CartItemsIndicator'
 const Navbar = () => {
 
     return (
-        <nav className="navbar bg-base-100 border-4 border-primary">
+        <nav className="navbar bg-base-100 border-4 border-primary h-[5vh]">
             <div className="navbar-start">
                 <Link href={"/"} className="btn btn-ghost normal-case text-xl">FakeStore</Link>
             </div>
             <ul tabIndex={0} className="menu menu-sm dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-                <li className='border border-primary rounded-3xl'><Link className='text-xl' href="/products">Productos</Link></li>
+                <li className='border border-primary rounded-3xl'><Link className='text-xl' href="/products">Products</Link></li>
             </ul>
             <div className="navbar-end">
                 <ThemeClientButton />
@@ -26,14 +26,14 @@ const Navbar = () => {
                         </div>
                     </label>
                     <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-                        <li><Link href={'/login'} >Iniciar Sesión</Link></li>
+                        <li><Link href={'/login'} >Log In</Link></li>
                         <li>
                             <a className="justify-between">
                                 Profile
                                 <span className="badge">New</span>
                             </a>
                         </li>
-                        <li><Link href={'/admin'}>ADMIN</Link></li>
+                        <li><Link href={'/admin'}>Admin</Link></li>
                         <li><a>Settings</a></li>
                         <li><a>Logout</a></li>
                     </ul>

@@ -90,10 +90,11 @@ const adminProductsSeatch = () => {
     }
 
     return (
-        <div className='flex flex-col items-center'>
-            <form onSubmit={searchIdProduct} className='flex flex-col items-stretch py-5 min-h-[56vh] gap-5'>
+        <div className='flex flex-col items-center min-h-[59vh]'>
+            <form onSubmit={searchIdProduct} className='flex flex-col items-stretch gap-5 p-10'>
 
-                <h1 className='text-4xl text-center' htmlFor="">Filter by:</h1>
+                <h1 className='text-4xl mt-4 text-center' htmlFor="">Filter by:</h1>
+                <div className="divider divider-neutral m-0"></div>
                 <div className='flex'>
 
                     <div className='flex flex-col items-center w-1/3'>
