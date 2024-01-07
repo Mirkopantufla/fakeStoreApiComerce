@@ -93,7 +93,7 @@ const adminProductsSeatch = () => {
         <div className='flex flex-col items-center min-h-[58vh]'>
             <form onSubmit={searchIdProduct} className='flex flex-col items-stretch gap-5 p-10'>
 
-                <h1 className='text-4xl mt-4 text-center' htmlFor="">Filter by:</h1>
+                <h1 className='text-4xl mt-4 font-bold text-center' htmlFor="">Filter by:</h1>
                 <div className="divider divider-neutral m-0"></div>
                 <div className='flex'>
 
@@ -126,26 +126,26 @@ const adminProductsSeatch = () => {
             {
                 foundedProduct ?
                     <form className='form-control justify-center items-center border border-neutral w-[80vw] sm:w-[70vw] px-5 py-10 mb-10 gap-5'>
-                        <h3 className='text-3xl font-bold'>Producto Encontrado</h3>
+                        <h3 className='text-3xl font-bold'>Founded Product</h3>
 
                         <div className='flex flex-col items-center w-full'>
-                            <label className='text-lg font-bold' htmlFor="">Nombre del producto</label>
+                            <label className='text-lg font-bold' htmlFor="">Product Title</label>
                             <input className="text-center input input-bordered input-primary w-full max-w-lg mt-1" type="text" defaultValue={foundedProduct?.title} />
                         </div>
                         <div className='flex flex-col items-center w-full'>
-                            <label className='text-lg font-bold' htmlFor="">Precio</label>
+                            <label className='text-lg font-bold' htmlFor="">Price</label>
                             <input className="text-center input input-bordered input-primary w-full max-w-lg mt-1" type="text" defaultValue={foundedProduct?.price} />
                         </div>
                         <div className='flex flex-col items-center w-full'>
-                            <label className='text-lg font-bold' htmlFor="">Descripción</label>
+                            <label className='text-lg font-bold' htmlFor="">Description</label>
                             <textarea className="textarea text-center input-bordered textarea-primary w-full max-w-lg mt-1" type="text" defaultValue={foundedProduct?.description} rows={6} />
                         </div>
                         <div className='flex flex-col items-center w-full'>
-                            <label className='text-lg font-bold' htmlFor="">Categoria</label>
+                            <label className='text-lg font-bold' htmlFor="">Category</label>
                             <input className="text-center input input-bordered input-primary w-full max-w-lg mt-1" type="text" defaultValue={foundedProduct?.category} />
                         </div>
                         <div className='flex flex-col items-center w-full'>
-                            <label className='text-lg font-bold' htmlFor="">Imagenes</label>
+                            <label className='text-lg font-bold' htmlFor="">Images</label>
                             {
                                 foundedProduct?.images.map((image) => {
                                     return (
