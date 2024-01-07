@@ -17,6 +17,7 @@ const AdminLayout = ({ children }) => {
                 <h1 className='text-center text-4xl pt-5'>Admin Section</h1>
                 <ul className='flex bg-opacity-25'>
                     <li className={`${liClass} `}><Link className={linkClass} href={'/admin/products'}>Products</Link></li>
+                    <li className={`${liClass} `}><Link className={linkClass} href={'/admin/offers'}>Offers</Link></li>
                     <li className={liClass}><Link className={linkClass} href={'/admin/users'}>Users</Link></li>
                 </ul>
 

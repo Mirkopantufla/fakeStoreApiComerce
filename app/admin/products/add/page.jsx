@@ -1,14 +1,15 @@
 "use client"
 import React, { useState } from 'react'
 
+//   /products/add
 const adminProductsAdd = () => {
 
     const [photos, setPhotos] = useState([]);
 
     return (
         <div className='form-control items-center'>
-            <form className='form-control justify-center items-center border border-neutral w-[80vw] sm:w-[70vw] px-5 py-10 mb-10 gap-5'>
-                <h3 className='text-3xl font-bold'>Agregar Producto</h3>
+            <form className='form-control justify-center items-center w-[80vw] sm:w-[70vw] py-10 gap-5'>
+                <h3 className='text-3xl font-bold py-2'>Agregar Producto</h3>
 
                 <div className='flex flex-col items-center w-full'>
                     <label className='text-lg font-bold' htmlFor="">Nombre del producto</label>
