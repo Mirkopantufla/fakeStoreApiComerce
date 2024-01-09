@@ -1,8 +1,8 @@
 "use client"
 import React, { useEffect, useState } from 'react'
 import { ProductCard } from '../../components/ProductCard/ProductCard.jsx'
-import Carrousel from '../../components/Products/Carrousel.jsx'
 import { fakeURL } from '@/utils/paths.js'
+import Carrousel from '@/components/Products/Carrousel.jsx'
 
 //Products page
 //   /products
@@ -57,15 +57,15 @@ const Products = () => {
         <main>
             <div className='col-span-12 flex flex-col justify-center items-center border-y-2 border-primary mb-3 p-3'>
                 <h1 className='font-bold text-3xl'>Categorias</h1>
-                <ul className='flex justify-between w-screen'>
-                    <li className='flex-1 items-center mx-4 my-2 '>
+                <ul className='flex justify-between w-full'>
+                    <li className='flex-1 p-2 '>
                         <div onClick={() => setSelected("")} className={categoriesClasses}>All</div>
                     </li>
                     {
 
                         categories.map((cat) => {
                             return (
-                                <li key={cat} className='flex-1 mx-4 my-2'>
+                                <li key={cat} className='flex-1 p-2'>
                                     <div onClick={() => setSelected(`/category/${cat}`)} className={categoriesClasses}>{cat}</div>
                                 </li>
                             )

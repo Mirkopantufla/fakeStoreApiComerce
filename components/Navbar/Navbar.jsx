@@ -6,7 +6,7 @@ import CartItemsIndicator from './CartItemsIndicator'
 const Navbar = () => {
 
     return (
-        <nav className="navbar bg-base-100 border-4 border-primary h-[5vh]">
+        <nav className="navbar bg-base-100 border-primary min-h-[6vh] p-0">
             <div className="navbar-start">
                 <Link href={"/"} className="btn btn-ghost normal-case text-xl">FakeStore</Link>
             </div>
