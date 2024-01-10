@@ -15,19 +15,23 @@ const Carro = () => {
         { id: 3, src: "/oferta3.png", alt: "Banner Oferta 3" }
     ];
 
+    // Al montarse el componente, se iniciara el temporizador por si solo, y por temas de re-renderizado de limpia el adicional
     useEffect(() => {
         startTimer()
         return () => clearInterval(currentTimer.current);
     }, []);
 
+    // Aqui es donde se llama a la funcion 
     useEffect(() => {
         nextPosition()
     }, [time])
 
+    // Funcion para iniciar el temporizador, aqui se controla la velocidad de las imagenes del carrousel
     const startTimer = () => {
-        currentTimer.current = setInterval(() => setTime((prev) => prev + 1), 3000);
+        currentTimer.current = setInterval(() => setTime((prev) => prev + 1), 4500);
     };
 
+    // Funcion para detener el temporizador
     const stopTimer = () => {
         clearInterval(currentTimer.current);
     };
@@ -56,16 +60,21 @@ const Carro = () => {
     return (
         <section id="custom-carousel" className='p-4'>
             <div className='relative overflow-hidden' onMouseEnter={stopTimer}
-                onMouseLeave={startTimer}>
+                onMouseLeave={() => {
+                    stopTimer()
+                    startTimer()
+                }
+                }>
                 <div
                     className='flex w-full max-h-80 transition ease-out duration-[1000ms]'
                     style={{ transform: `translateX(-${currentPosition * 100}%)` }}
                 >
                     {
                         sources ?
-                            sources.map((image) => {
+                            sources.map((image, index) => {
                                 return (
                                     <Image
+                                        key={index}
                                         src={`${image.src}`}
                                         id={`offer-banner-${image.id}`}
                                         className="flex-[1_0_100%] rounded-lg snap-start object-fill"
@@ -92,6 +101,7 @@ const Carro = () => {
                             sources.map((image, index) => {
                                 return (
                                     <button
+                                        key={index}
                                         onClick={() => setCurrentPosition(index)}
                                         className={`text-sm btn btn-sm btn-primary ${index === currentPosition ? "opacity-100" : "opacity-60"}`}
                                     >
