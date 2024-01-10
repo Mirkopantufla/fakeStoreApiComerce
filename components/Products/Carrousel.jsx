@@ -1,19 +1,40 @@
 "use client"
 import Image from 'next/image'
-import Link from 'next/link'
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { GrFormNext, GrFormPrevious } from "react-icons/gr";
 
 const Carro = () => {
 
-    const [currentPosition, setCurrentPosition] = useState(1);
+    const [currentPosition, setCurrentPosition] = useState(0);
+    const [time, setTime] = useState(0);
+    const currentTimer = useRef();
+
     const sources = [
         { id: 1, src: "/oferta1.jpg", alt: "Banner Oferta 1" },
         { id: 2, src: "/oferta2.jpg", alt: "Banner Oferta 2" },
         { id: 3, src: "/oferta3.png", alt: "Banner Oferta 3" }
     ];
 
+    useEffect(() => {
+        startTimer()
+        return () => clearInterval(currentTimer.current);
+    }, []);
+
+    useEffect(() => {
+        nextPosition()
+    }, [time])
+
+    const startTimer = () => {
+        currentTimer.current = setInterval(() => setTime((prev) => prev + 1), 3000);
+    };
+
+    const stopTimer = () => {
+        clearInterval(currentTimer.current);
+    };
+
+
     const previousPosition = () => {
+
         if (currentPosition === 0) {
             setCurrentPosition(sources.length - 1)
         } else {
@@ -21,7 +42,10 @@ const Carro = () => {
         }
     };
 
+    // Antes de pasar a la siguiente imagen, comprueba si es la ultima, 
+    // si es así, se devuelve a la primera, de lo contrario, avanza una posición
     const nextPosition = () => {
+
         if (currentPosition === sources.length - 1) {
             setCurrentPosition(0)
         } else {
@@ -31,9 +55,10 @@ const Carro = () => {
 
     return (
         <section id="custom-carousel" className='p-4'>
-            <div className='relative overflow-hidden'>
+            <div className='relative overflow-hidden' onMouseEnter={stopTimer}
+                onMouseLeave={startTimer}>
                 <div
-                    className='flex w-full max-h-80 transition ease-out duration-[800ms]'
+                    className='flex w-full max-h-80 transition ease-out duration-[1000ms]'
                     style={{ transform: `translateX(-${currentPosition * 100}%)` }}
                 >
                     {
@@ -80,12 +105,12 @@ const Carro = () => {
                 </div>
                 <div className='absolute h-full w-full top-0 flex items-center justify-between px-6'>
                     <button
-                        onClick={() => previousPosition()}
+                        onClick={previousPosition}
                         className='text-sm btn btn-sm btn-primary opacity-60 hover:opacity-100 sm:text-2xl sm:btn-md'>
                         <GrFormPrevious />
                     </button>
                     <button
-                        onClick={() => nextPosition()}
+                        onClick={nextPosition}
                         className='text-sm btn btn-sm btn-primary opacity-60 hover:opacity-100 sm:text-2xl sm:btn-md'>
                         <GrFormNext />
                     </button>
