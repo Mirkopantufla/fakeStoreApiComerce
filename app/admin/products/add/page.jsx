@@ -1,12 +1,46 @@
 "use client"
-import React, { useState } from 'react'
+import { GlobalContext } from '@/context/GlobalContext';
+import { baseURL } from '@/utils/paths';
+import React, { useContext, useEffect, useState } from 'react'
 import { MdDelete } from "react-icons/md";
+import { toast } from 'react-toastify';
 
 //   /products/add
 const adminProductsAdd = () => {
 
     const [photos, setPhotos] = useState([]);
-    const [currentPhoto, setCurrentPhoto] = useState(undefined)
+    const [currentPhoto, setCurrentPhoto] = useState(undefined);
+    const { store } = useContext(GlobalContext);
+    const [isLoading, setIsLoading] = useState(false);
+    const [productTitle, setProductTitle] = useState("");
+    const [productPrice, setProductPrice] = useState(0);
+    const [productDescription, setProductDescription] = useState("");
+    const [categories, setCategories] = useState([]);
+    const inputClassName = 'input text-center input-bordered input-primary w-full max-w-xl';
+
+    useEffect(() => {
+
+        getCategories()
+
+    }, [])
+
+    const getCategories = async () => {
+
+        setIsLoading(true)
+
+        try {
+
+            const respJson = await fetch(`${baseURL}/products/find/categories`);
+            const data = await respJson.json();
+
+            setCategories([...data]);
+
+        } catch (error) {
+            toast.error(`Ha ocurrido un error... ${error}`, { autoClose: 2000 })
+        } finally {
+            setIsLoading(false)
+        }
+    }
 
     const deletePhoto = (position) => {
 
@@ -22,6 +56,9 @@ const adminProductsAdd = () => {
         setPhotos(newArray)
     }
 
+    const validateForm = () => {
+
+    }
 
     return (
         <div className='flex flex-col p-10'>
@@ -30,19 +67,48 @@ const adminProductsAdd = () => {
 
                 <div className='flex flex-col gap-2 items-center w-full'>
                     <label className='text-lg font-bold' htmlFor="">Product Title</label>
-                    <input className="text-center input input-bordered input-primary w-full max-w-lg mt-1" type="text" />
+                    <input
+                        className={inputClassName}
+                        placeholder='Golden Neclace'
+                        type="text"
+                        onChange={(e) => setProductTitle(e.target.value)}
+                    />
                 </div>
                 <div className='flex flex-col gap-2 items-center w-full'>
                     <label className='text-lg font-bold' htmlFor="">Price</label>
-                    <input className="text-center input input-bordered input-primary w-full max-w-lg mt-1" type="text" />
+                    <input
+                        className={inputClassName}
+                        placeholder='123.32'
+                        type="text"
+                        onChange={(e) => setProductPrice(e.target.value)}
+                    />
                 </div>
                 <div className='flex flex-col gap-2 items-center w-full'>
                     <label className='text-lg font-bold' htmlFor="">Description</label>
-                    <textarea className="textarea text-center input-bordered textarea-primary w-full max-w-lg mt-1" type="text" rows={3} />
+                    <textarea
+                        className="textarea text-center input-bordered textarea-primary w-full max-w-xl mt-1"
+                        placeholder='Duis maximus augue purus, nec interdum sem ultrices vel.'
+                        type="text"
+                        rows={3}
+                        onChange={(e) => setProductDescription(e.target.value)}
+                    />
                 </div>
                 <div className='flex flex-col gap-2 items-center w-full'>
                     <label className='text-lg font-bold' htmlFor="">Category</label>
-                    <input className="text-center input input-bordered input-primary w-full max-w-lg mt-1" type="text" />
+                    <select defaultValue={'Select an existing category'} className="text-center select select-primary w-full max-w-xl">
+                        <option value={'Select an existing category'} disabled>Select an existing category</option>
+                        {
+                            categories ?
+                                categories.map((category) => {
+                                    return (
+                                        <option key={`add-product-${category}`} value={category}>{category}</option>
+                                    )
+                                })
+                                :
+                                <span className="loading loading-spinner text-primary"></span>
+                        }
+
+                    </select>
                 </div>
                 <div className='flex flex-col gap-2 items-center w-full'>
                     <label className='text-lg font-bold' htmlFor="">Images</label>
@@ -85,7 +151,13 @@ const adminProductsAdd = () => {
                     }
                 </div>
 
-                <button className='btn btn-primary w-1/3 self-center'>Add Product</button>
+                {/* <------------------------- REGISTER BUTTON ---------------------------> */}
+                <button disabled={store.isLoading} className='btn btn-primary w-1/3 disabled:opacity-75 self-center'>
+                    {store?.isLoading ?
+                        <span className="loading loading-spinner loading-lg text-primary"></span>
+                        :
+                        'Registrate!'}
+                </button>
             </form>
 
             {/* Se genera un dialogo, el cual despues es llamado por el id y se va modificando dinamicamente la imagen a mostrar*/}

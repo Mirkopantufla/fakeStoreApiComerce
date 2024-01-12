@@ -206,7 +206,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                     }
 
                 } catch (error) {
-                    console.log(error)
+                    toast.error(`Ha ocurrido un error... ${error}`, { autoClose: 2000 })
                 } finally {
                     setStore({ isLoading: false })
                 }
