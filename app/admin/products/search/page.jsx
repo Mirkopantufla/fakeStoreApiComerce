@@ -21,6 +21,7 @@ const adminProductsSeatch = () => {
         setIsLoading(true)
         try {
 
+            // Si no se cumplen los requisitos del campo a buscar, no se ejecutará
             if (validateSearchFilters(searchFilter, searchParam)) {
                 return;
             }
@@ -103,12 +104,12 @@ const adminProductsSeatch = () => {
                     </div>
 
                     <div className='flex flex-col items-center w-1/3'>
-                        <label className="label-text">Nombre</label>
+                        <label className="label-text">Title</label>
                         <input onClick={(e) => setSearchFilter(e.target.value)} value="title" type="radio" name="radio-2" className="radio radio-primary" />
                     </div>
 
                     <div className='flex flex-col items-center w-1/3'>
-                        <label className="label-text">Categoria</label>
+                        <label className="label-text">Category</label>
                         <input onClick={(e) => setSearchFilter(e.target.value)} value="category" type="radio" name="radio-2" className="radio radio-primary" />
                     </div>
 

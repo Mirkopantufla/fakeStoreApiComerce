@@ -60,6 +60,21 @@ const adminProductsAdd = () => {
 
     }
 
+    const addProductOnSubmit = async () => {
+
+        try {
+
+            const respJson = await fetch(`${baseURL}/products/add`);
+            const data = await respJson.json();
+
+        } catch (error) {
+            toast.error(`Ha ocurrido un error... ${error}`);
+        } finally {
+            setIsLoading(false)
+        }
+
+    }
+
     return (
         <div className='flex flex-col p-10'>
             <form className='form-control py-10 gap-6'>
@@ -105,7 +120,7 @@ const adminProductsAdd = () => {
                                     )
                                 })
                                 :
-                                <span className="loading loading-spinner text-primary"></span>
+                                null
                         }
 
                     </select>
