@@ -26,7 +26,7 @@ Para aprender mas sobre Next.js, echa un vistazo a la documentación oficial:
 - React-Icons: v4.11.0 [doc](https://react-icons.github.io/react-icons/)
 - React-Toastify: v9.1.3 [doc](https://fkhadra.github.io/react-toastify/introduction/)
 - Tailwind: CSS v3.3.3  [doc](https://tailwindcss.com/docs/installation)
-- Daisyui: v4.4.19  [doc](https://tailwindcss.com/docs/installation)
+- Daisyui: v4.4.19  [doc](https://daisyui.com/)
 
 ## Custom Backend
 Proximamente se migrara al uso de base de datos propia.
