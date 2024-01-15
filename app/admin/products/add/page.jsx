@@ -62,7 +62,21 @@ const adminProductsAdd = () => {
 
     const addProductOnSubmit = async () => {
 
+        const formData = {
+            title: "",
+            price: 0,
+            description: "",
+            category: "",
+            images: photos
+        }
+
         try {
+
+            const options = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            }
 
             const respJson = await fetch(`${baseURL}/products/add`);
             const data = await respJson.json();
@@ -128,12 +142,13 @@ const adminProductsAdd = () => {
                 <div className='flex flex-col gap-2 items-center w-full'>
                     <label className='text-lg font-bold' htmlFor="">Images</label>
                     <input
+                        className="file-input file-input-bordered file-input-primary w-full max-w-xs"
+                        type="file"
+                        multiple
                         onChange={(e) => {
                             setPhotos(Array.prototype.slice.call(e.target.files))
                         }}
-                        className="file-input file-input-bordered file-input-primary w-full max-w-xs"
-                        type="file"
-                        multiple />
+                    />
                 </div>
                 {/* Seccion contenedora de previsualizacion de imagenes */}
                 <div className={`flex ${photos.length > 0 ? "border border-neutral gap-6 px-5 py-10 overflow-x-auto custom-scrollbar" : ""}`}>

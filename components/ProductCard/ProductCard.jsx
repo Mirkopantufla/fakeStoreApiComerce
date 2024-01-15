@@ -5,14 +5,16 @@ import AddToCartButton from './AddToCartButton'
 
 export const ProductCard = ({ product }) => {
     return (
-        <div className="card xl:w-96 lg:w-80 w-96 bg-base-100 border border-primary p-1 shadow-xl pb-5">
-            <figure className='bg-white flex justify-center'><img className='h-48' src={product.image} alt="Shoes" /></figure>
-            <div className="card-body">
-                <Link className="card-title truncate" href={`/products/${product.id}`}>{product.title}</Link>
-                <p className='text-ellipsis h-[7.5rem] overflow-y-auto overflow-x-hidden'>{product.description}</p>
-            </div>
-            <div className="card-actions items-center justify-between px-7">
-                <div className="badge badge-outline">{product.category}</div>
+        <div className="card xl:w-96 lg:w-80 w-96 border border-primary shadow-md shadow-primary pb-4">
+            <Link className='flex flex-col' href={`/products/${product.id}`}>
+                <figure className='bg-white flex justify-center rounded-t-xl'><img className='h-48' src={product.image} alt="Shoes" /></figure>
+                <div className="flex flex-col p-5 gap-4 h-56">
+                    <h3 className="text-2xl font-bold truncate">{product.title}</h3>
+                    <p className='line-clamp-5'>{product.description}</p>
+                </div>
+            </Link>
+            <div className="card-actions items-center justify-between px-7 pt-3">
+                <div className="badge border border-primary rounded-lg p-4">{product.category}</div>
                 <AddToCartButton product={product} />
                 <ProductCardButton />
             </div>

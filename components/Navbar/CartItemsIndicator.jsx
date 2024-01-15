@@ -31,13 +31,10 @@ const CartItemsIndicator = () => {
                         cart.map((item) => {
                             return (
                                 <div key={item.id} className='flex items-center justify-between p-2 mb-2 border border-primary rounded-md hover:bg-primary hover:bg-opacity-10 active:scale-95'>
-                                    <Link className='flex' href={`/products/${item.id}`}>
-                                        <div>
-                                            <img className='min-w-[65px] max-w-[65px] min-h-[80px] max-h-[80px] me-5' src={item.image} alt="" />
-                                        </div>
-                                        <div className='flex flex-col items-center justify-center'>
-                                            <span className=' leading-8 line-clamp-1'>{item.title}</span>
-                                            <div className='divider lg:divider-horizontal'></div>
+                                    <Link className='flex w-full' href={`/products/${item.id}`}>
+                                        <img className='min-w-[75px] max-w-[75px] min-h-[80px] max-h-[80px]' src={item.image} alt="" />
+                                        <div className='flex flex-col justify-center items-center w-full px-4'>
+                                            <span className='line-clamp-1'>{item.title}</span>
                                             <span className='font-bold'>{`$${item.price}`}</span>
                                         </div>
                                     </Link>
