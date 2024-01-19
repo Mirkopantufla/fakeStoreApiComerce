@@ -1,0 +1,1 @@
+export const allowed_photo_extensions = ['jpg', 'png', 'jpeg']

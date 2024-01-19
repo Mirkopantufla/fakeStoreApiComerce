@@ -1,5 +1,6 @@
 'use client'
 
+import { baseURL } from "@/utils/paths";
 import { regexCorreos, regexRut, regexSecurePassword, regexSoloLetras, regexSoloNumeros } from "@/utils/regexStore";
 import { toast, Flip } from "react-toastify";
 
@@ -9,7 +10,8 @@ const getState = ({ getStore, getActions, setStore }) => {
             apiURL: 'http://127.0.0.1:5000',
             cart: [],
             registerTermsAndConditions: false,
-            isLoading: false
+            isLoading: false,
+            categories: []
         },
         actions: {
             handleFormChange: (e) => {
@@ -185,7 +187,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                 setStore({ isLoading: true })
 
                 const fetchOptions = {
-                    apiURL: "http://127.0.0.1:5000/api/users/register",
+                    apiURL: `${baseURL}/api/users/register`,
                     options: {
                         method: 'POST',
                         headers: {
@@ -248,6 +250,22 @@ const getState = ({ getStore, getActions, setStore }) => {
             getLocalProducts: () => {
                 let localProducts = localStorage.getItem('cart');
                 setStore({ cart: JSON.parse(localProducts) })
+            },
+            getProductCategories: async () => {
+                // Hago un fetch para traer todas las categorias desde el backend
+                // y esta la utilizo en el global context, para que se carguen desde el inicio de la pagina
+                try {
+
+                    const respJson = await fetch(`${baseURL}/products/find/categories`);
+                    const data = await respJson.json();
+
+                    // Las guardo en categories (store.categories)
+                    setStore({ categories: [...data] });
+
+                } catch (error) {
+                    toast.error(`Ha ocurrido un error con getProductCategories: ${error}`, { autoClose: 2000 })
+                }
+
             }
         }
     }

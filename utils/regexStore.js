@@ -4,8 +4,14 @@ export const regexCorreos = /^[^@]+@[^@]+\.[a-zA-Z]{2,}$/;
 //Solo letras admitidas en este campo
 export const regexSoloLetras = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ'\s]+$/;
 
+//Solo textos descriptivos, permite numeros, letras y caracteres
+export const regexSoloTextos = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ'\s]+$/;
+
 //Solo numeros del 0-9
 export const regexSoloNumeros = /^[0-9]+$/;
+
+//Solo numeros del 0-9
+export const regexSoloValores = /^\d+(?:[.,]\d+)?$/;
 
 //Rut Valido, que sea una cadena 'xxxxxxxx-x'
 export const regexRut = /^[0-9]+[-|‐]{1}[0-9kK]{1}$/;

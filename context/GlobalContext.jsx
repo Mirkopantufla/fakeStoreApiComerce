@@ -18,6 +18,7 @@ export const GlobalProvider = ({ children }) => {
     useEffect(() => {
 
         state.actions.getLocalProducts()
+        state.actions.getProductCategories()
 
     }, [])
 
