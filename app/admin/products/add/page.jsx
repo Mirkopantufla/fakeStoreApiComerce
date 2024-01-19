@@ -89,11 +89,11 @@ const adminProductsAdd = () => {
         const category = document.getElementsByName('product-category')[0]
         const images = document.getElementsByName('product-photos')[0]
 
-        validateFormData(title, "El titulo no puede quedar vacio", "El titulo debe tener solo letras", regexSoloLetras) ? null : counter + 1;
-        validateFormData(price, "El precio no puede quedar vacio", "El precio debe tener un formato valido (22.22)", regexSoloValores) ? null : counter + 1;
-        validateFormData(description, "La descripcion no puede quedar vacia", "La descripcion debe tener solo letras") ? null : counter + 1;
-        validateFormData(category, "Debes seleccionar una opcion de categoria") ? null : counter + 1;
-        validateFormData(images, "Debes subir archivos de imagen validos, como .jpeg, .jpg ó .png") ? null : counter + 1;
+        validateFormData(title, "El titulo no puede quedar vacio", "El titulo debe tener solo letras", regexSoloLetras) ? null : counter += 1;
+        validateFormData(price, "El precio no puede quedar vacio", "El precio debe tener un formato valido (22.22)", regexSoloValores) ? null : counter += 1;
+        validateFormData(description, "La descripcion no puede quedar vacia", "La descripcion debe tener solo letras") ? null : counter += 1;
+        validateFormData(category, "Debes seleccionar una opcion de categoria") ? null : counter += 1;
+        validateFormData(images, "Debes subir archivos de imagen validos, como .jpeg, .jpg ó .png") ? null : counter += 1;
 
 
         counter === 5 ? hasError = false : hasError = true;
@@ -145,6 +145,7 @@ const adminProductsAdd = () => {
     const addProductOnSubmit = async (e) => {
         e.preventDefault()
 
+        //Si esta todo validado correctamente, puede continuar con el fetch
         if (validateAfterSubmit()) {
             return toast.warning("Debes rellenar todo el formulario para agregar un producto", { autoClose: 3000 })
         }
