@@ -24,13 +24,17 @@ const adminProductsAdd = () => {
     const deletePhoto = (position) => {
 
         let newArray = []
+        let photos = document.getElementById("product-photos")
 
         if (productPhotos.length > 1) {
-            productPhotos.map((photo, index) => index !== position ? newArray.push(photo) : null)
+            productPhotos.map((photo, index) => {
+                if (index !== position) {
+                    newArray.push(photo)
+                }
+            })
         } else {
             newArray = []
         }
-
 
         setProductPhotos(newArray)
     }
@@ -42,8 +46,6 @@ const adminProductsAdd = () => {
         // -Los dejo separados, para tener un mejor manejo condicional 
         // -Reset password solo necesita ser igual a password
         // -Terminos y condiciones solo debe validar si es true.
-
-        console.log(target)
 
         if (target.name === "product-photos") {
             // file, sibling, list
@@ -86,8 +88,6 @@ const adminProductsAdd = () => {
         const description = document.getElementsByName('product-description')[0]
         const category = document.getElementsByName('product-category')[0]
         const images = document.getElementsByName('product-photos')[0]
-
-        console.log(images.files)
 
         validateFormData(title, "El titulo no puede quedar vacio", "El titulo debe tener solo letras", regexSoloLetras) ? null : counter + 1;
         validateFormData(price, "El precio no puede quedar vacio", "El precio debe tener un formato valido (22.22)", regexSoloValores) ? null : counter + 1;
@@ -144,6 +144,11 @@ const adminProductsAdd = () => {
 
     const addProductOnSubmit = async (e) => {
         e.preventDefault()
+
+        if (validateAfterSubmit()) {
+            return toast.warning("Debes rellenar todo el formulario para agregar un producto", { autoClose: 3000 })
+        }
+
         setIsLoading(true)
 
         const sendedFormData = new FormData();
