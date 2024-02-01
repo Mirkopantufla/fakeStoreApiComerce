@@ -28,7 +28,7 @@ const Carro = () => {
 
     // Funcion para iniciar el temporizador, aqui se controla la velocidad de las imagenes del carrousel
     const startTimer = () => {
-        currentTimer.current = setInterval(() => setTime((prev) => prev + 1), 4500);
+        currentTimer.current = setInterval(() => setTime((prev) => prev + 1), 5000);
     };
 
     // Funcion para detener el temporizador
@@ -66,7 +66,7 @@ const Carro = () => {
                 }
                 }>
                 <div
-                    className='flex w-full max-h-80 transition ease-out duration-[1000ms]'
+                    className='flex w-full max-h-80 transition ease-out duration-[1300ms]'
                     style={{ transform: `translateX(-${currentPosition * 100}%)` }}
                 >
                     {

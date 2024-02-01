@@ -11,7 +11,9 @@ const getState = ({ getStore, getActions, setStore }) => {
             cart: [],
             registerTermsAndConditions: false,
             isLoading: false,
-            categories: []
+            customBackendProducts: [],
+            categories: [],
+            products: []
         },
         actions: {
             handleFormChange: (e) => {
@@ -28,7 +30,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 
                 setStore({ registerTermsAndConditions: !registerTermsAndConditions })
             },
-
             validateData: (e, innerMessage1, innerMessage2, regex, hasError) => {
 
                 const { registerTermsAndConditions, registerPassword } = getStore();
@@ -113,7 +114,6 @@ const getState = ({ getStore, getActions, setStore }) => {
                 }
 
             },
-
             validateFormData: (e) => {
                 let hasError = false;
                 const { validateData } = getActions();
@@ -187,7 +187,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                 setStore({ isLoading: true })
 
                 const fetchOptions = {
-                    apiURL: `${baseURL}/api/users/register`,
+                    apiURL: `${baseURL}/users/register`,
                     options: {
                         method: 'POST',
                         headers: {
@@ -203,7 +203,9 @@ const getState = ({ getStore, getActions, setStore }) => {
                     const respJson = await fetch(fetchOptions.apiURL, fetchOptions.options);
                     const data = await respJson.json();
 
-                    if (data.status >= 200 && data.status < 300) {
+                    if (data.status === 400) {
+                        toast.warning(data.warning)
+                    } else if (data.status === 200) {
                         toast.success("Registrado correctamente, ahora puedes iniciar sesión.", { autoClose: 2000 })
                     }
 
@@ -218,7 +220,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
                 const { cart } = getStore();
 
-                let productsOnCart = cart.filter((item) => item.id == product.id)
+                let productsOnCart = cart.filter((item) => item.product_id == product.product_id)
 
                 if (productsOnCart.length == 0) {
                     //Seteo en el carrito el producto
@@ -235,7 +237,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
                 const { cart } = getStore();
 
-                setStore({ cart: cart.filter(item => item.id !== product.id) })
+                setStore({ cart: cart.filter(item => item.product_id !== product.product_id) })
 
                 toast.warning(`${product.title} quitado del carrito`, { position: "top-right", autoClose: 1500, transition: Flip })
 
@@ -249,6 +251,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             },
             getLocalProducts: () => {
                 let localProducts = localStorage.getItem('cart');
+
                 setStore({ cart: JSON.parse(localProducts) })
             },
             getProductCategories: async () => {
@@ -256,7 +259,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                 // y esta la utilizo en el global context, para que se carguen desde el inicio de la pagina
                 try {
 
-                    const respJson = await fetch(`${baseURL}/products/find/categories`);
+                    const respJson = await fetch(`${baseURL}/products/categories`);
                     const data = await respJson.json();
 
                     // Las guardo en categories (store.categories)
@@ -264,6 +267,18 @@ const getState = ({ getStore, getActions, setStore }) => {
 
                 } catch (error) {
                     toast.error(`Ha ocurrido un error con getProductCategories: ${error}`, { autoClose: 2000 })
+                }
+
+            },
+            getAllProducts: async () => {
+
+                try {
+                    const responseJson = await fetch(`${baseURL}/products`)
+                    const data = await responseJson.json()
+
+                    setStore({ customBackendProducts: data })
+                } catch (error) {
+                    toast.error(`Ha ocurrido un error con getAllProducts: ${error}`, { autoClose: 2000 })
                 }
 
             }

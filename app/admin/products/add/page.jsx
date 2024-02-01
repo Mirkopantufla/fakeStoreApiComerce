@@ -1,9 +1,10 @@
 "use client"
 import { GlobalContext } from '@/context/GlobalContext';
 import { baseURL } from '@/utils/paths';
-import { regexSoloLetras, regexSoloNumeros, regexSoloValores } from '@/utils/regexStore';
-import { allowed_photo_extensions } from '@/utils/validations';
-import React, { useContext, useEffect, useState } from 'react'
+import { regexSoloLetras, regexSoloValores } from '@/utils/regexStore';
+import { allowed_photo_extensions, capitalizedFirstLetter } from '@/utils/validations';
+import Link from 'next/link';
+import React, { useContext, useState } from 'react'
 import { MdDelete } from "react-icons/md";
 import { toast } from 'react-toastify';
 
@@ -18,6 +19,7 @@ const adminProductsAdd = () => {
     const [productDescription, setProductDescription] = useState("");
     const [productCategory, setProductCategory] = useState("");
     const [productPhotos, setProductPhotos] = useState([]);
+    const [addCategory, setAddCategory] = useState(false);
 
     const inputClassName = 'input text-center input-bordered input-primary w-full max-w-xl';
 
@@ -27,11 +29,7 @@ const adminProductsAdd = () => {
         let photos = document.getElementById("product-photos")
 
         if (productPhotos.length > 1) {
-            productPhotos.map((photo, index) => {
-                if (index !== position) {
-                    newArray.push(photo)
-                }
-            })
+            productPhotos.map((photo, index) => index !== position ? newArray.push(photo) : null)
         } else {
             newArray = []
         }
@@ -39,16 +37,22 @@ const adminProductsAdd = () => {
         setProductPhotos(newArray)
     }
 
-    const validateFormData = (target, innerMessage1, innerMessage2, regex) => {
+    const validateFormData = (target, emptyErrorMessage, regexErrorMessage, regex) => {
+
+        // validateFormData = (target, emptyErrorMessage, regexErrorMessage, regex)
+        // target: recibe un nodelist del input, buscado por el nombre (document.getElementsByName()[0])
+        // emptyErrorMessage: En caso de estar vacio el campo, enviara este mensaje
+        // regexErrorMessage: En caso de estar mal la validacion por regex, enviara este mensaje
+        // regex: Recibe el regex que validara si esta bien formateada la informacion recibida
 
         let hasError = false;
         //Validando los campos para que no esten vacios y que cumplan cierta condicion, dependiendo del regex que le pasemos
-        // -Los dejo separados, para tener un mejor manejo condicional 
-        // -Reset password solo necesita ser igual a password
-        // -Terminos y condiciones solo debe validar si es true.
+        // -Las imagenes se validan aparte, por ser otro tipo de dato
+        // -Para mejor legibilidad, se crea una funcion
+
 
         if (target.name === "product-photos") {
-            // file, sibling, list
+            // validatePhotos(file, sibling, list)
             validatePhotos(target.files, target.nextElementSibling, target.classList)
 
         } else {
@@ -56,7 +60,7 @@ const adminProductsAdd = () => {
             if (target.value === "" || target.value === undefined) {
                 hasError = true;
                 target.nextElementSibling.classList.remove("hidden");
-                target.nextElementSibling.innerHTML = innerMessage1;
+                target.nextElementSibling.innerHTML = emptyErrorMessage;
                 target.classList.add("border-error")
                 target.classList.remove("border-primary")
                 return hasError;
@@ -64,7 +68,7 @@ const adminProductsAdd = () => {
             } else if (regex ? !regex.test(target.value) : null) {
                 hasError = true;
                 target.nextElementSibling.classList.remove("hidden");
-                target.nextElementSibling.innerHTML = innerMessage2;
+                target.nextElementSibling.innerHTML = regexErrorMessage;
                 target.classList.add("border-error")
                 target.classList.remove("border-primary")
                 return hasError;
@@ -89,11 +93,16 @@ const adminProductsAdd = () => {
         const category = document.getElementsByName('product-category')[0]
         const images = document.getElementsByName('product-photos')[0]
 
-        validateFormData(title, "El titulo no puede quedar vacio", "El titulo debe tener solo letras", regexSoloLetras) ? null : counter += 1;
+        // validateFormData = (target, emptyErrorMessage, regexErrorMessage, regex)
+        // target: recibe un nodelist del input, buscado por el nombre (document.getElementsByName()[0])
+        // emptyErrorMessage: En caso de estar vacio el campo, enviara este mensaje
+        // regexErrorMessage: En caso de estar mal la validacion por regex, enviara este mensaje
+        // regex: Recibe el regex que validara si esta bien formateada la informacion recibida
+        validateFormData(title, "El titulo no puede quedar vacio", "El titulo debe tener solo letras") ? null : counter += 1;
         validateFormData(price, "El precio no puede quedar vacio", "El precio debe tener un formato valido (22.22)", regexSoloValores) ? null : counter += 1;
         validateFormData(description, "La descripcion no puede quedar vacia", "La descripcion debe tener solo letras") ? null : counter += 1;
         validateFormData(category, "Debes seleccionar una opcion de categoria") ? null : counter += 1;
-        validateFormData(images, "Debes subir archivos de imagen validos, como .jpeg, .jpg ó .png") ? null : counter += 1;
+        validateFormData(images) ? null : counter += 1;
 
 
         counter === 5 ? hasError = false : hasError = true;
@@ -106,9 +115,10 @@ const adminProductsAdd = () => {
         const phootos = Array.prototype.slice.call(file)
         let counter = phootos.lenght
 
+
         if (file.length === 0) {
             sibling.classList.remove("hidden");
-            sibling.innerHTML = "Debes subir almenos una imagen";
+            sibling.innerHTML = "Files must be format .jpg, .jpeg, .png";
             list.add("border-error")
             list.remove("border-primary")
             return hasError
@@ -154,7 +164,7 @@ const adminProductsAdd = () => {
 
         const sendedFormData = new FormData();
         sendedFormData.append('title', productTitle)
-        sendedFormData.append('price', productPrice)
+        sendedFormData.append('price', parseFloat(productPrice))
         sendedFormData.append('description', productDescription)
         sendedFormData.append('category', productCategory)
         productPhotos?.map((image) => sendedFormData.append('images', image))
@@ -196,8 +206,8 @@ const adminProductsAdd = () => {
                         type="text"
                         name="product-title"
                         onChange={(e) => {
-                            setProductTitle(e.target.value)
-                            validateFormData(e.target, "El titulo no puede quedar vacio", "El titulo debe tener solo letras", regexSoloLetras)
+                            setProductTitle(capitalizedFirstLetter(e.target.value))
+                            validateFormData(e.target, "El titulo no puede quedar vacio", "El titulo debe tener solo letras")
                         }}
                     />
                     <small className='hidden text-error'></small>
@@ -238,30 +248,52 @@ const adminProductsAdd = () => {
 
                 {/*------------------------- PRODUCT CATEGORY -------------------------*/}
                 <div className='flex flex-col gap-2 items-center w-full'>
-                    <label className='text-lg font-bold' htmlFor="">Category</label>
-                    <select
-                        defaultValue={''}
-                        className="text-center select select-primary w-full max-w-xl"
-                        name="product-category"
-                        onChange={(e) => {
-                            setProductCategory(e.target.value)
-                            validateFormData(e.target, "Debes seleccionar una opcion de categoria")
-                        }}
-                        onBlur={(e) => validateFormData(e.target, "Debes seleccionar una opcion de categoria")}
-                    >
-                        <option value={''} disabled>Select an existing category</option>
-                        {
-                            store.categories ?
-                                store.categories.map((category) => {
-                                    return (
-                                        <option key={`add-product-${category}`} value={category}>{category}</option>
-                                    )
-                                })
-                                :
-                                null
-                        }
-
-                    </select>
+                    <div className='grid grid-cols-3 w-full max-w-xl'>
+                        <label className='col-start-2 text-lg font-bold justify-self-center' htmlFor="">Category</label>
+                        <button
+                            type='button'
+                            className='btn btn-sm btn-primary justify-self-end'
+                            onClick={() => setAddCategory(!addCategory)}
+                        >
+                            {
+                                addCategory ? "Select Category" : "New Category"
+                            }
+                        </button>
+                    </div>
+                    {
+                        addCategory === false ?
+                            <select
+                                defaultValue={''}
+                                className="text-center select select-primary w-full max-w-xl"
+                                name="product-category"
+                                onChange={(e) => {
+                                    setProductCategory(e.target.value)
+                                    validateFormData(e.target, "Debes seleccionar una opcion de categoria")
+                                }}
+                                onBlur={(e) => validateFormData(e.target, "Debes seleccionar una opcion de categoria")}
+                            >
+                                <option value={''} disabled>Select an existing category</option>
+                                {
+                                    store.categories ?
+                                        store.categories.map((category) => {
+                                            return (
+                                                <option key={`add-product-${category}`} value={category}>{category}</option>
+                                            )
+                                        })
+                                        :
+                                        null
+                                }
+                            </select>
+                            :
+                            <input
+                                type="text"
+                                name="product-category"
+                                className={inputClassName}
+                                id="" onChange={(e) => {
+                                    setProductCategory(capitalizedFirstLetter(e.target.value))
+                                    validateFormData(e.target, "Debes seleccionar una opcion de categoria")
+                                }} />
+                    }
                     <small className='hidden text-error'></small>
                 </div>
 
@@ -276,7 +308,7 @@ const adminProductsAdd = () => {
                         multiple
                         onChange={(e) => {
                             setProductPhotos(Array.prototype.slice.call(e.target.files))
-                            validateFormData(e.target, "Debes subir archivos de imagen validos, como .jpeg, .jpg ó .png")
+                            validateFormData(e.target, "Files must be format .jpg, .jpeg, .png")
                         }}
                     />
                     <small className='hidden text-error'></small>
@@ -332,7 +364,6 @@ const adminProductsAdd = () => {
                 </form>
             </dialog>
 
-            <button onClick={() => validateAfterSubmit()}>Check</button>
         </div>
     )
 }

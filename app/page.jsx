@@ -4,7 +4,7 @@ import Image from 'next/image'
 export default function Home() {
   return (
     <main className='grid-cols-12'>
-      <div className="hero min-h-[75vh] bg-base-200">
+      <div className="hero min-h-[76vh] bg-base-200">
         <div className="hero-content flex-col lg:flex-row">
           <Image
             src="/disco-duro-western-no-bg.png"

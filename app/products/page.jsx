@@ -1,8 +1,9 @@
 "use client"
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { ProductCard } from '../../components/ProductCard/ProductCard.jsx'
 import { fakeURL } from '@/utils/paths.js'
 import Carrousel from '@/components/Products/Carrousel.jsx'
+import { GlobalContext } from '@/context/GlobalContext.jsx'
 
 //Products page
 //   /products
@@ -16,6 +17,7 @@ const Products = () => {
     const [selected, setSelected] = useState("");
     const [foundedProducts, setFoundedProducts] = useState([])
     const categoriesClasses = 'flex items-center justify-center font-bold text-lg bg-primary text-black h-9 cursor-pointer hover:scale-95 hover:underline hover:decoration-2';
+    const { store, actions } = useContext(GlobalContext)
 
     useEffect(() => {
 
@@ -77,14 +79,16 @@ const Products = () => {
             <Carrousel />
             <div className='flex flex-wrap justify-center p-7 gap-4'>
                 {
-
-                    foundedProducts.map((producto) => {
-                        return (
-                            <div key={producto.id} className='lg:col-span-4 md:col-span-6 col-start-3 col-span-8 flex justify-center'>
-                                <ProductCard product={producto} />
-                            </div>
-                        )
-                    })
+                    store.customBackendProducts ?
+                        store.customBackendProducts.map((product) => {
+                            return (
+                                <div key={product.product_id} className='lg:col-span-4 md:col-span-6 col-start-3 col-span-8 flex justify-center'>
+                                    <ProductCard product={product} />
+                                </div>
+                            )
+                        })
+                        :
+                        null
 
                 }
             </div>

@@ -5,7 +5,7 @@ import { GlobalContext } from '@/context/GlobalContext'
 import VerifyPasswordSmalls from '@/components/Login/Register/VerifyPasswordSmalls'
 
 //REGISTER PAGE
-const page = () => {
+const registerPage = () => {
 
     const inputClassName = 'input input-sm text-center input-bordered w-full'
     const { store, actions } = useContext(GlobalContext)
@@ -135,7 +135,7 @@ const page = () => {
 
                 </div>
                 {/* <------------------------- REGISTER BUTTON ---------------------------> */}
-                <button disabled={store.isLoading} className='btn btn-primary mt-4 disabled:opacity-75'>
+                <button type='submit' disabled={store.isLoading} className='btn btn-primary mt-4 disabled:opacity-75'>
                     {store?.isLoading ?
                         <span className="loading loading-spinner loading-lg text-primary"></span>
                         :
@@ -164,4 +164,4 @@ const page = () => {
     )
 }
 
-export default page
+export default registerPage
