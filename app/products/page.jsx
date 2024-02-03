@@ -1,7 +1,6 @@
 "use client"
 import React, { useContext, useEffect, useState } from 'react'
 import { ProductCard } from '../../components/ProductCard/ProductCard.jsx'
-import { baseURL, fakeURL } from '@/utils/paths.js'
 import Carrousel from '@/components/Products/Carrousel.jsx'
 import { GlobalContext } from '@/context/GlobalContext.jsx'
 
