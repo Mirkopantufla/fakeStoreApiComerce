@@ -1,7 +1,7 @@
 "use client"
 import React, { useContext, useEffect, useState } from 'react'
 import { ProductCard } from '../../components/ProductCard/ProductCard.jsx'
-import { fakeURL } from '@/utils/paths.js'
+import { baseURL, fakeURL } from '@/utils/paths.js'
 import Carrousel from '@/components/Products/Carrousel.jsx'
 import { GlobalContext } from '@/context/GlobalContext.jsx'
 
@@ -13,46 +13,30 @@ export const metadata = {
 
 const Products = () => {
 
-    const [categories, setCategories] = useState([]);
-    const [selected, setSelected] = useState("");
-    const [foundedProducts, setFoundedProducts] = useState([])
+    const { store } = useContext(GlobalContext)
+    const [selectedProducts, setSelectedProducts] = useState(store.products)
     const categoriesClasses = 'flex items-center justify-center font-bold text-lg bg-primary text-black h-9 cursor-pointer hover:scale-95 hover:underline hover:decoration-2';
-    const { store, actions } = useContext(GlobalContext)
 
     useEffect(() => {
 
-        cargarDatos()
-        cargarCategorias()
+        setSelectedProducts(store.products)
 
-    }, [])
-
-    useEffect(() => {
-
-        chargeCategoryProducts()
-
-    }, [selected])
+    }, [store.products])
 
 
-    const chargeCategoryProducts = async () => {
+    const changeDisplayedProducts = (selected) => {
 
-        const responseJson = await fetch(`${fakeURL}/products${selected}`)
-        const responseCategoriesData = await responseJson.json()
+        let productFilteredCategory = [];
 
-        setFoundedProducts([...responseCategoriesData])
-    }
+        //En caso de buscar todos los productos, setea el estado con todos los productos originales
+        if (selected === "All") {
+            setSelectedProducts(store.products)
+        } else {
+            //De lo contrario, filtra por categoria
+            productFilteredCategory = store.products.filter((product) => product.category === selected)
+            setSelectedProducts([...productFilteredCategory])
+        }
 
-    const cargarDatos = async () => {
-        const responseProducts = await fetch(`${fakeURL}/products`)
-        const products = await responseProducts.json()
-
-        setFoundedProducts([...products])
-    }
-
-    const cargarCategorias = async () => {
-        const responseCategories = await fetch(`${fakeURL}/products/categories`)
-        const categories = await responseCategories.json()
-
-        setCategories([...categories])
     }
 
     return (
@@ -61,26 +45,27 @@ const Products = () => {
                 <h1 className='font-bold text-3xl'>Categorias</h1>
                 <ul className='flex justify-between w-full'>
                     <li className='flex-1 p-2 '>
-                        <div onClick={() => setSelected("")} className={categoriesClasses}>All</div>
+                        <div onClick={() => changeDisplayedProducts("All")} className={categoriesClasses}>All</div>
                     </li>
                     {
-
-                        categories.map((cat) => {
-                            return (
-                                <li key={cat} className='flex-1 p-2'>
-                                    <div onClick={() => setSelected(`/category/${cat}`)} className={categoriesClasses}>{cat}</div>
-                                </li>
-                            )
-                        })
-
+                        store.categories ?
+                            store.categories.map((category) => {
+                                return (
+                                    <li key={category} className='flex-1 p-2'>
+                                        <div onClick={() => changeDisplayedProducts(category)} className={categoriesClasses}>{category}</div>
+                                    </li>
+                                )
+                            })
+                            :
+                            null
                     }
                 </ul>
             </div>
             <Carrousel />
             <div className='flex flex-wrap justify-center p-7 gap-4'>
                 {
-                    store.customBackendProducts ?
-                        store.customBackendProducts.map((product) => {
+                    selectedProducts ?
+                        selectedProducts.map((product) => {
                             return (
                                 <div key={product.product_id} className='lg:col-span-4 md:col-span-6 col-start-3 col-span-8 flex justify-center'>
                                     <ProductCard product={product} />

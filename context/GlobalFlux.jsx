@@ -11,7 +11,6 @@ const getState = ({ getStore, getActions, setStore }) => {
             cart: [],
             registerTermsAndConditions: false,
             isLoading: false,
-            customBackendProducts: [],
             categories: [],
             products: []
         },
@@ -276,7 +275,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                     const responseJson = await fetch(`${baseURL}/products`)
                     const data = await responseJson.json()
 
-                    setStore({ customBackendProducts: data })
+                    setStore({ products: data })
                 } catch (error) {
                     toast.error(`Ha ocurrido un error con getAllProducts: ${error}`, { autoClose: 2000 })
                 }
