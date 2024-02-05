@@ -3,10 +3,10 @@ import { GlobalContext } from '@/context/GlobalContext';
 import { baseURL } from '@/utils/paths';
 import { regexSoloLetras, regexSoloValores } from '@/utils/regexStore';
 import { allowed_photo_extensions, capitalizedFirstLetter } from '@/utils/validations';
-import Link from 'next/link';
 import React, { useContext, useState } from 'react'
 import { MdDelete } from "react-icons/md";
 import { toast } from 'react-toastify';
+import ImageModal from './_components/ImageModal';
 
 //   /products/add
 const adminProductsAdd = () => {
@@ -355,14 +355,7 @@ const adminProductsAdd = () => {
             </form>
 
             {/* Se genera un dialogo, el cual despues es llamado por el id y se va modificando dinamicamente la imagen a mostrar*/}
-            <dialog id={`my_image_viewer_modal`} className="modal">
-                <div className="modal-box" style={{ maxWidth: "1000px" }}>
-                    <img src={currentPhoto !== undefined ? URL.createObjectURL(currentPhoto) : ""} alt="" />
-                </div>
-                <form method="dialog" className="modal-backdrop">
-                    <button className='cursor-default'>close</button>
-                </form>
-            </dialog>
+            <ImageModal file={currentPhoto} />
 
         </div>
     )

@@ -5,7 +5,12 @@ export const regexCorreos = /^[^@]+@[^@]+\.[a-zA-Z]{2,}$/;
 export const regexSoloLetras = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ'\s]+$/;
 
 //Solo textos descriptivos, permite numeros, letras y caracteres
-export const regexSoloTextos = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ'\s]+$/;
+//Permite: numeros 0-9 
+// letras minusculas a-z 
+// letras mayusculas A-Z 
+// Vocales con tilde 
+// Caracteres especiales: ñ Ñ / ' ² ! ¡ ) ( , . - [ ] whitespace
+export const regexTextSpecialCharacters = /^[0-9a-zA-ZñÑáéíóúÁÉÍÓÚ/'²!¡)(,.\‐\-\s\[\]]+$/;
 
 //Solo numeros del 0-9
 export const regexSoloNumeros = /^[0-9]+$/;
