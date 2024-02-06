@@ -3,6 +3,8 @@ import { GlobalContext } from '@/context/GlobalContext';
 import Link from 'next/link';
 import React, { useContext } from 'react'
 import { MdDelete } from "react-icons/md";
+import NoImage from '../../public/no-image-available.jpg'
+import Image from 'next/image';
 
 const CartItemsIndicator = () => {
 
@@ -33,7 +35,19 @@ const CartItemsIndicator = () => {
                                 return (
                                     <div key={item.product_id} className='flex items-center justify-between p-2 mb-2 border border-primary rounded-md hover:bg-primary hover:bg-opacity-10 active:scale-95'>
                                         <Link className='flex w-full' href={`/products/${item.product_id}`}>
-                                            <img className='min-w-[75px] max-w-[75px] min-h-[80px] max-h-[80px]' src={item.images[0].src_imagen} alt="" />
+                                            <div className='min-w-[75px] max-w-[75px] min-h-[80px] max-h-[80px]'>
+                                                {
+                                                    item.images[0] ?
+                                                        <img className='object-contain' src={item.images[0] ? item.images[0].src_imagen : NoImage} alt="" />
+                                                        :
+                                                        <Image
+                                                            className='object-contain'
+                                                            src={NoImage}
+                                                            alt="no-image"
+                                                        />
+                                                }
+                                            </div>
+
                                             <div className='flex flex-col justify-center items-center w-full px-4'>
                                                 <span className='line-clamp-1'>{item.title}</span>
                                                 <span className='font-bold'>{`$${item.price}`}</span>

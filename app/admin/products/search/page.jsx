@@ -36,7 +36,6 @@ const adminProductsSearch = () => {
                 toast.warning("Producto Inexistente")
                 setFoundedProduct(null)
             } else {
-                console.log(data)
                 setFoundedProduct(data.product)
                 return data;
             }
@@ -96,8 +95,6 @@ const adminProductsSearch = () => {
         }
 
     }
-
-
 
     return (
         <div className="flex flex-col items-center min-h-[58vh]">

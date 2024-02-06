@@ -1,7 +1,9 @@
 import React from 'react'
+import Image from 'next/image';
 import ProductClientButton from './_components/ProductClientButton';
 import ClientAddToCart from '@/components/Products/ProductsId/ClientAddToCart';
 import { baseURL } from '@/utils/paths';
+import NoImage from '../../../public/no-image-available.jpg'
 
 
 const fetchProduct = async (id) => {
@@ -25,8 +27,21 @@ const ProductDisplay = async ({ params }) => {
                 <div className='col-start-2 col-span-4 row-span-3 flex flex-col items-center border-2 border-neutral p-10 mb-5'>
                     <h1 className='text-4xl text-center'>{data?.product?.title}</h1>
                     <div className="bg-accent text-neutral rounded-2xl p-2 my-3">{data?.product?.category}</div>
-                    <div className='w-[400px] h-[400px] flex justify-center m-5'>
-                        <img className='w-auto h-full' src={data.product?.images ? data.product?.images[0].src_imagen : null} alt="" />
+                    <div className='min-w-[300px] max-w-[600px] min-h-[400px] max-h-[800px] flex justify-center items-center m-5'>
+                        {
+                            data.product.images[0] ?
+                                <img
+                                    className='w-auto h-full'
+                                    alt={data?.product?.title}
+                                    src={data.product.images[0].src_imagen}
+                                />
+                                :
+                                <Image
+                                    className='w-auto h-full'
+                                    src={NoImage}
+                                    alt="no-image"
+                                />
+                        }
                     </div>
                     <div className='flex flex-col items-center'>
                         <p className='text-6xl my-2 bg-neutral p-2 rounded-2xl text-primary'>${data?.product?.price}</p>

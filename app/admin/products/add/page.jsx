@@ -2,7 +2,7 @@
 import { GlobalContext } from '@/context/GlobalContext';
 import { baseURL } from '@/utils/paths';
 import { regexSoloLetras, regexSoloValores } from '@/utils/regexStore';
-import { allowed_photo_extensions, capitalizedFirstLetter } from '@/utils/validations';
+import { allowed_photo_extensions, allowed_photo_max_size, capitalizedFirstLetter } from '@/utils/validations';
 import React, { useContext, useState } from 'react'
 import { MdDelete } from "react-icons/md";
 import { toast } from 'react-toastify';
@@ -26,7 +26,6 @@ const adminProductsAdd = () => {
     const deletePhoto = (position) => {
 
         let newArray = []
-        let photos = document.getElementById("product-photos")
 
         if (productPhotos.length > 1) {
             productPhotos.map((photo, index) => index !== position ? newArray.push(photo) : null)
@@ -53,7 +52,7 @@ const adminProductsAdd = () => {
 
         if (target.name === "product-photos") {
             // validatePhotos(file, sibling, list)
-            validatePhotos(target.files, target.nextElementSibling, target.classList)
+            return hasError = validatePhotos(productPhotos, target.files, target.nextElementSibling, target.classList);
 
         } else {
 
@@ -110,37 +109,53 @@ const adminProductsAdd = () => {
         return hasError;
     }
 
-    const validatePhotos = (file, sibling, list) => {
+    const validatePhotos = (stateFiles, targetFiles, sibling, list) => {
+        // files: e
+        // asd
+        // asd
+        // asd
         let hasError = false;
-        const phootos = Array.prototype.slice.call(file)
-        let counter = phootos.lenght
+        let counter = stateFiles.lenght
 
-
-        if (file.length === 0) {
+        if (stateFiles.lenght === 0 && targetFiles.length === 0) {
+            hasError = true;
+            counter -= 1
             sibling.classList.remove("hidden");
-            sibling.innerHTML = "Files must be format .jpg, .jpeg, .png";
+            sibling.innerHTML = "At least one image is required";
             list.add("border-error")
             list.remove("border-primary")
             return hasError
         }
 
-        phootos?.map((image) => {
+        stateFiles?.map((image) => {
 
             let backwardsString = image.name.split(".").reverse()
+
             if (!allowed_photo_extensions.includes(backwardsString[0].toLowerCase())) {
                 hasError = true;
                 counter -= 1
                 sibling.classList.remove("hidden");
-                sibling.innerHTML = "Debes subir archivos de imagen validos, como .jpeg, .jpg ó .png";
+                sibling.innerHTML = "Files format must be .jpg, .jpeg, .png.";
                 list.add("border-error")
                 list.remove("border-primary")
+                return hasError;
+            }
+
+            if (image.size > allowed_photo_max_size) {
+                hasError = true;
+                counter -= 1
+                sibling.classList.remove("hidden");
+                sibling.innerHTML = "Files weight must be less than 2 MB.";
+                list.add("border-error")
+                list.remove("border-primary")
+                toast.error("Files weight must be less than 2 MB.")
                 return hasError;
             }
         })
 
         // Si el contador sigue teniendo la misma cantidad, significa que ninguna foto dio error
         // Por lo tanto, quitamos el error y devolvemos el contador a 0
-        if (counter === phootos.lenght) {
+        if (counter === stateFiles.lenght) {
             hasError = false;
             sibling.classList.add("hidden")
             list.add("border-primary")
@@ -157,7 +172,7 @@ const adminProductsAdd = () => {
 
         //Si esta todo validado correctamente, puede continuar con el fetch
         if (validateAfterSubmit()) {
-            return toast.warning("Debes rellenar todo el formulario para agregar un producto", { autoClose: 3000 })
+            return toast.warning("You must make sure you fill out all the fields and have no errors.", { autoClose: 3000 })
         }
 
         setIsLoading(true)
@@ -321,14 +336,14 @@ const adminProductsAdd = () => {
                             productPhotos.map((photo, index) => {
                                 return (
 
-                                    <div key={`prev-image-viewer-${index}`} className='w-auto h-auto relative'>
+                                    <div key={`prev-image-viewer-${index}`} className='relative min-w-[400px] min-h-[250px] max-h-[250px] flex justify-center items-center border border-neutral'>
                                         <img
                                             id={`prev-image-viewer-${index}`}
                                             onClick={() => {
                                                 setCurrentPhoto(photo)
                                                 document.getElementById(`my_image_viewer_modal`).showModal()
                                             }}
-                                            className='min-w-[400px] min-h-[250px] max-h-[250px] cursor-pointer'
+                                            className='cursor-pointer object-contain max-w-[400px] max-h-[250px]'
                                             src={URL.createObjectURL(photo)}
                                             alt=""
                                         />
@@ -348,7 +363,7 @@ const adminProductsAdd = () => {
                 {/* <------------------------- REGISTER BUTTON ---------------------------> */}
                 <button type='submit' disabled={store.isLoading} className='btn btn-primary w-1/3 disabled:opacity-75 self-center'>
                     {isLoading ?
-                        <span className="loading loading-spinner loading-lg text-primary"></span>
+                        <span className="loading loading-spinner loading-lg text-neutral"></span>
                         :
                         'Add Product'}
                 </button>
