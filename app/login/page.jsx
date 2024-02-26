@@ -34,6 +34,8 @@ const LoginPage = () => {
         if (data?.status === 200) {
             toast.success("Logeado correctamente", { autoClose: 3000 })
 
+            // AQUI DEBO PONER LA INSERSION DE DATOS EN EL GLOBAL CONTEXT
+
             router.push('/products')
         } else if (data?.status >= 400) {
             toast.warning("Usuario o contraseña incorrectos!")

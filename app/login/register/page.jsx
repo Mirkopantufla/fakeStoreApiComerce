@@ -1,8 +1,8 @@
 "use client"
 import React, { useContext, useState } from 'react'
-import ClientModalButton from '@/components/Login/Register/ClientModalButton'
+import ClientModalButton from './_components/ClientModalButton'
 import { GlobalContext } from '@/context/GlobalContext'
-import VerifyPasswordSmalls from '@/components/Login/Register/VerifyPasswordSmalls'
+import VerifyPasswordSmalls from './_components/VerifyPasswordSmalls'
 
 //REGISTER PAGE
 const registerPage = () => {
@@ -10,6 +10,10 @@ const registerPage = () => {
     const inputClassName = 'input input-sm text-center input-bordered w-full'
     const { store, actions } = useContext(GlobalContext)
     const [conditions, setConditions] = useState(false);
+
+
+
+
 
     return (
         <div className='flex justify-center items-center min-h-[80vh]'>

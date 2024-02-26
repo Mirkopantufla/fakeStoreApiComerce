@@ -1,9 +1,9 @@
 import React from 'react'
 import Image from 'next/image';
 import ProductClientButton from './_components/ProductClientButton';
-import ClientAddToCart from '@/components/Products/ProductsId/ClientAddToCart';
 import { baseURL } from '@/utils/paths';
 import NoImage from '../../../public/no-image-available.jpg'
+import ClientAddToCart from './_components/ClientAddToCart';
 
 
 const fetchProduct = async (id) => {
