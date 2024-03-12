@@ -20,6 +20,7 @@ export const GlobalProvider = ({ children }) => {
         state.actions.getLocalProducts()
         state.actions.getProductCategories()
         state.actions.getAllProducts()
+        state.actions.chargeDataFromLocal()
 
     }, [])
 

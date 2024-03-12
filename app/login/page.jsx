@@ -1,15 +1,27 @@
 "use client"
 
+import { GlobalContext } from '@/context/GlobalContext';
+import { isAdmin, isAuthenticated } from '@/utils/auth';
 import { baseURL } from '@/utils/paths';
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import { toast } from 'react-toastify';
 
 //LOGIN PAGE
 const LoginPage = () => {
 
     const router = useRouter();
+    const { actions } = useContext(GlobalContext)
+
+    useEffect(() => {
+
+        isAuthenticated() ? router.push('/products') : null;
+
+    }, [])
+
+
+
 
     const onSubmit = async (e) => {
         e.preventDefault()
@@ -35,10 +47,14 @@ const LoginPage = () => {
             toast.success("Logeado correctamente", { autoClose: 3000 })
 
             // AQUI DEBO PONER LA INSERSION DE DATOS EN EL GLOBAL CONTEXT
+            actions.saveLoginFetchData(data.data.access_token, data.data.user);
+            console.log(data)
 
             router.push('/products')
-        } else if (data?.status >= 400) {
-            toast.warning("Usuario o contraseña incorrectos!")
+        } else if (data?.status === 400) {
+            toast.warning(data.warning)
+        } else if (data?.status === 401) {
+            toast.error(data.error)
         }
     }
 

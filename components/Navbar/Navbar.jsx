@@ -2,6 +2,8 @@ import Link from 'next/link'
 import React from 'react'
 import ThemeClientButton from './ThemeClientButton'
 import CartItemsIndicator from './CartItemsIndicator'
+import LoginLogout from './LoginLogout'
+import AdminLink from './AdminLink'
 
 const Navbar = () => {
 
@@ -26,16 +28,15 @@ const Navbar = () => {
                         </div>
                     </label>
                     <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-                        <li><Link href={'/login'} >Log In</Link></li>
+                        <LoginLogout />
                         <li>
                             <a className="justify-between">
                                 Profile
                                 <span className="badge">New</span>
                             </a>
                         </li>
-                        <li><Link href={'/admin'}>Admin</Link></li>
-                        <li><a>Settings</a></li>
-                        <li><a>Logout</a></li>
+                        <AdminLink />
+                        <li><Link href={'/admin'}>Settings</Link></li>
                     </ul>
                 </div>
             </div>

@@ -5,6 +5,7 @@ import VerifyPasswordSmalls from './_components/VerifyPasswordSmalls'
 import { regexCorreos, regexRut, regexSecurePassword, regexSoloLetras, regexSoloNumeros } from '@/utils/regexStore'
 import { baseURL } from '@/utils/paths'
 import { toast } from 'react-toastify'
+import { useRouter } from 'next/navigation'
 
 //REGISTER PAGE
 const registerPage = () => {
@@ -19,6 +20,8 @@ const registerPage = () => {
     const [registerRepeatPassword, setRegisterRepeatPassword] = useState('');
     const [registerTermsAndConditions, setRegisterTermsAndConditions] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+
+    const router = useRouter();
 
     const validateData = (e, innerMessage1, innerMessage2, regex, hasError) => {
 
@@ -193,6 +196,7 @@ const registerPage = () => {
                 toast.warning(data.warning)
             } else if (data.status === 200) {
                 toast.success("Registrado correctamente, ahora puedes iniciar sesión.", { autoClose: 2000 })
+                router.push('/login')
             }
 
         } catch (error) {

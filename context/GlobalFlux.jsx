@@ -1,16 +1,16 @@
 'use client'
 
+import { isAuthenticated } from "@/utils/auth";
 import { baseURL } from "@/utils/paths";
-import { regexCorreos, regexRut, regexSecurePassword, regexSoloLetras, regexSoloNumeros } from "@/utils/regexStore";
 import { toast, Flip } from "react-toastify";
 
 const getState = ({ getStore, getActions, setStore }) => {
     return {
         store: {
             apiURL: 'http://127.0.0.1:5000',
+            access_token: undefined,
+            user: [],
             cart: [],
-            registerTermsAndConditions: false,
-            isLoading: false,
             categories: [],
             products: []
         },
@@ -75,7 +75,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 
             },
             getAllProducts: async () => {
-
+                // Hago un fetch para traer todas los productos desde el backend
+                // y esta la utilizo en el global context, para que se carguen desde el inicio de la pagina
                 try {
                     const responseJson = await fetch(`${baseURL}/products`)
                     const data = await responseJson.json()
@@ -85,7 +86,28 @@ const getState = ({ getStore, getActions, setStore }) => {
                     toast.error(`Ha ocurrido un error con getAllProducts: ${error}`, { autoClose: 2000 })
                 }
 
-            }
+            },
+            saveLoginFetchData: (access_token, userData) => {
+
+                setStore({ access_token: access_token, user: userData })
+
+                localStorage.setItem('user', JSON.stringify(userData))
+                localStorage.setItem('access_token', JSON.stringify(access_token))
+
+            },
+            chargeDataFromLocal: () => {
+
+                if (localStorage.getItem('access_token')) {
+                    const token = JSON.parse(localStorage.getItem('access_token'))
+                    const userData = JSON.parse(localStorage.getItem('user'))
+
+                    setStore({ access_token: token, user: userData });
+                }
+
+            },
+            deleteUserData: () => {
+                setStore({ access_token: undefined, user: [] });
+            },
         }
     }
 }
