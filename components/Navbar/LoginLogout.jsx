@@ -2,17 +2,19 @@
 import { GlobalContext } from '@/context/GlobalContext'
 import { logout } from '@/utils/auth'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import React, { useContext } from 'react'
 
 const LoginLogout = () => {
 
     const { store, actions } = useContext(GlobalContext)
+    const router = useRouter();
 
     const logOutFunction = () => {
 
         logout()
         actions.deleteUserData()
-        location.reload()
+        router.push('/products')
 
     }
 

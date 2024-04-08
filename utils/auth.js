@@ -12,6 +12,22 @@ export function isAuthenticated() {
 
 }
 
+export function isAdministrator() {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user) {
+
+        if (user.role_id === 1) {
+            return true
+        } else {
+            return false
+        }
+
+    } else {
+        return false
+    }
+
+}
+
 export function login(access_token) {
     //Guarda el token en el local storage
     localStorage.setItem("access_token", access_token)

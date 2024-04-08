@@ -75,7 +75,6 @@ const adminProductsSearch = () => {
                 return hasError = true;
             }
 
-
         }
 
         return hasError;
@@ -169,15 +168,19 @@ const adminProductsSearch = () => {
                             <label className="text-lg font-bold" htmlFor="">Category</label>
                             <input className="text-center input input-bordered input-primary w-full max-w-lg mt-1" type="text" defaultValue={foundedProduct?.category} />
                         </div>
-                        <div className="flex flex-col items-center w-full">
-                            <label className="text-lg font-bold" htmlFor="">Images</label>
-                            {
-                                foundedProduct?.images.map((image) => {
-                                    return (
-                                        <img src={image.src_imagen} alt="" />
-                                    )
-                                })
-                            }
+                        <div className="flex flex-col">
+                            <label className="text-lg font-bold text-center" htmlFor="">Images</label>
+                            <div className="flex h-52 w-full justify-center mt-1">
+                                {
+                                    foundedProduct?.images.map((image) => {
+                                        return (
+
+                                            <img className="object-contain max-w-[400px] max-h-[250px]" src={image.src_imagen} alt="" />
+
+                                        )
+                                    })
+                                }
+                            </div>
                         </div>
 
                     </form>

@@ -1,27 +1,17 @@
 "use client"
-
+import React, { useContext } from 'react'
 import { GlobalContext } from '@/context/GlobalContext';
-import { isAdmin, isAuthenticated } from '@/utils/auth';
 import { baseURL } from '@/utils/paths';
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
-import React, { useContext, useEffect } from 'react'
+import IsAuth from '@/components/IsAuth';
 import { toast } from 'react-toastify';
+import { useRouter } from 'next/navigation';
 
 //LOGIN PAGE
 const LoginPage = () => {
 
-    const router = useRouter();
     const { actions } = useContext(GlobalContext)
-
-    useEffect(() => {
-
-        isAuthenticated() ? router.push('/products') : null;
-
-    }, [])
-
-
-
+    const router = useRouter();
 
     const onSubmit = async (e) => {
         e.preventDefault()
@@ -94,4 +84,4 @@ const LoginPage = () => {
     )
 }
 
-export default LoginPage
+export default IsAuth(LoginPage)

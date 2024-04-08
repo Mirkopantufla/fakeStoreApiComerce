@@ -36,7 +36,7 @@ const Navbar = () => {
                             </a>
                         </li>
                         <AdminLink />
-                        <li><Link href={'/admin'}>Settings</Link></li>
+                        <li><Link href={'/products'}>Settings</Link></li>
                     </ul>
                 </div>
             </div>

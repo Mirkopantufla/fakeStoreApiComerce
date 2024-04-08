@@ -8,9 +8,9 @@ import Image from 'next/image'
 export const ProductCard = ({ product }) => {
 
     return (
-        <div className="card xl:w-96 lg:w-80 w-96 border border-primary shadow-md shadow-primary pb-4">
+        <div className="card xl:w-96 lg:w-80 w-96 border-2 border-primary shadow-md shadow-primary pb-4">
             <Link className='flex flex-col' href={`/products/${product ? product.product_id : null}`}>
-                <figure className='bg-white flex justify-center rounded-t-xl'>
+                <figure className='bg-white flex justify-center rounded-t-[14px]'>
                     {
                         product.images[0] ?
                             <img
