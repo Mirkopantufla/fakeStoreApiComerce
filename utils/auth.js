@@ -14,6 +14,7 @@ export function isAuthenticated() {
 
 export function isAdministrator() {
     const user = JSON.parse(localStorage.getItem('user'));
+
     if (user) {
 
         if (user.role_id === 1) {
