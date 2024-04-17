@@ -8,7 +8,7 @@ import AdminLink from './AdminLink'
 const Navbar = () => {
 
     return (
-        <nav className="navbar bg-base-100 border-primary min-h-[6vh] p-0">
+        <nav className="navbar bg-base-100 border border-neutral min-h-[6vh] p-0">
             <div className="navbar-start">
                 <Link href={"/"} className="btn btn-ghost normal-case text-xl">FakeStore</Link>
             </div>
@@ -18,9 +18,6 @@ const Navbar = () => {
             <div className="navbar-end">
                 <ThemeClientButton />
                 <CartItemsIndicator />
-                <div>
-
-                </div>
                 <div className="dropdown dropdown-end">
                     <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                         <div className="relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
@@ -28,15 +25,15 @@ const Navbar = () => {
                         </div>
                     </label>
                     <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-                        <LoginLogout />
+                        <AdminLink />
                         <li>
                             <a className="justify-between">
                                 Profile
                                 <span className="badge">New</span>
                             </a>
                         </li>
-                        <AdminLink />
                         <li><Link href={'/products'}>Settings</Link></li>
+                        <LoginLogout />
                     </ul>
                 </div>
             </div>
