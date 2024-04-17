@@ -13,16 +13,19 @@ export function isAuthenticated() {
 }
 
 export function isAdministrator() {
-    const user = JSON.parse(localStorage.getItem('user'));
+    let user = undefined;
+    //Verifico que el componente este montado antes de consutlar por el local storage
+    //Ya que por propiedades de nextJS no se puede consultar al local storage antes de montar el componente
+    if (typeof window !== 'undefined') {
+        user = JSON.parse(localStorage.getItem('user'));
+    }
 
     if (user) {
-
         if (user.role_id === 1) {
             return true
         } else {
             return false
         }
-
     } else {
         return false
     }
