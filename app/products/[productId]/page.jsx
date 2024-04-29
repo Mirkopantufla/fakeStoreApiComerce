@@ -16,6 +16,7 @@ const fetchProduct = async (id) => {
 const ProductDisplay = async ({ params }) => {
 
     const data = await fetchProduct(params.productId)
+    console.log(data.product)
 
     return (
         <>
@@ -29,11 +30,11 @@ const ProductDisplay = async ({ params }) => {
                     <div className="bg-accent text-neutral rounded-2xl p-2 my-3">{data?.product?.category}</div>
                     <div className='min-w-[300px] max-w-[600px] min-h-[400px] max-h-[800px] flex justify-center items-center m-5'>
                         {
-                            data.product.images[0] ?
+                            data?.product?.images[0] ?
                                 <img
                                     className='w-auto h-full'
                                     alt={data?.product?.title}
-                                    src={data.product.images[0].src_imagen}
+                                    src={data?.product?.images[0].image_src}
                                 />
                                 :
                                 <Image
