@@ -11,11 +11,13 @@ const CartItemsIndicator = () => {
     const { store: { cart }, actions } = useContext(GlobalContext)
 
     const calculateTotalPrice = () => {
+
         let totalPrice = 0;
 
-        cart?.map((item) => totalPrice += parseFloat(item.price))
+        cart?.map((item) => totalPrice += parseFloat(item.price));
 
         return totalPrice.toFixed(2);
+
     }
 
 
