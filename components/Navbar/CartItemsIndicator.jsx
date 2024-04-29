@@ -35,10 +35,13 @@ const CartItemsIndicator = () => {
                                 return (
                                     <div key={item.product_id} className='flex items-center justify-between p-2 mb-2 border border-primary rounded-md hover:bg-primary hover:bg-opacity-10 active:scale-95'>
                                         <Link className='flex w-full' href={`/products/${item.product_id}`}>
-                                            <div className='min-w-[75px] max-w-[75px] min-h-[80px] max-h-[80px]'>
+                                            <div className=''>
                                                 {
                                                     item.images[0] ?
-                                                        <img className='object-contain' src={item.images[0] ? item.images[0].src_imagen : NoImage} alt="" />
+                                                        <img
+                                                            className='object-fit w-[75px] h-[80px]'
+                                                            src={item.images[0].image_src}
+                                                            alt="" />
                                                         :
                                                         <Image
                                                             className='object-contain'
@@ -53,7 +56,11 @@ const CartItemsIndicator = () => {
                                                 <span className='font-bold'>{`$${item.price}`}</span>
                                             </div>
                                         </Link>
-                                        <div onClick={() => actions.deleteFromCart(item)} className='bg-primary border-2 text-black p-2 cursor-pointer hover:bg-opacity-80'><MdDelete className='text-3xl' /></div>
+                                        <button
+                                            onClick={() => actions.deleteFromCart(item)}
+                                            className='bg-primary border-2 text-black p-2 cursor-pointer hover:bg-opacity-80'>
+                                            <MdDelete className='text-3xl' />
+                                        </button>
                                     </div>
                                 )
                             })

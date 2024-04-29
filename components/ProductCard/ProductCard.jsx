@@ -15,7 +15,7 @@ export const ProductCard = ({ product }) => {
                         product.images[0] ?
                             <img
                                 className='h-48'
-                                src={product.images[0].src_imagen}
+                                src={product.images[0].image_src}
                                 alt='no image'
                             />
                             :
