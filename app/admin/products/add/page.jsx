@@ -36,48 +36,7 @@ const adminProductsAdd = () => {
         setProductPhotos(newArray)
     }
 
-    // const validateDataOnStates = (e, data) => {
-
-    //     if (e) {
-
-    //         if (target.value === "" || target.value === undefined) {
-    //             hasError = true;
-    //             target.nextElementSibling.classList.remove("hidden");
-    //             target.nextElementSibling.innerHTML = emptyErrorMessage;
-    //             target.classList.add("border-error")
-    //             target.classList.remove("border-primary")
-    //             return hasError;
-
-    //         } else if (regex ? !regex.test(target.value) : null) {
-    //             hasError = true;
-    //             target.nextElementSibling.classList.remove("hidden");
-    //             target.nextElementSibling.innerHTML = regexErrorMessage;
-    //             target.classList.add("border-error")
-    //             target.classList.remove("border-primary")
-    //             return hasError;
-    //         } else {
-    //             hasError = false;
-    //             target.nextElementSibling.classList.add("hidden")
-    //             target.classList.add("border-primary")
-    //             target.classList.remove("border-error")
-    //             return hasError;
-    //         }
-    //     } else {
-    //         let hasError = true;
-
-    //         let counter = 0;
-
-    //         const title = document.getElementsByName("product-title")[0]
-    //         const price = document.getElementsByName("product-price")[0]
-    //         const description = document.getElementsByName('product-description')[0]
-    //         const category = document.getElementsByName('product-category')[0]
-    //         const images = document.getElementsByName('product-photos')[0]
-    //     }
-
-
-    // }
     const validateFormData = (target, emptyErrorMessage, regexErrorMessage, regex) => {
-        console.log(target)
         // validateFormData = (target, emptyErrorMessage, regexErrorMessage, regex)
         // target: recibe un nodelist del input, buscado por el nombre (document.getElementsByName()[0])
         // emptyErrorMessage: En caso de estar vacio el campo, enviara este mensaje
@@ -259,7 +218,7 @@ const adminProductsAdd = () => {
                         name="product-title"
                         onChange={(e) => {
                             setProductTitle(capitalizedFirstLetter(e.target.value))
-                            validateFormData(e, e.target, "El titulo no puede quedar vacio", "El titulo debe tener solo letras")
+                            validateFormData(e.target, "El titulo no puede quedar vacio", "El titulo debe tener solo letras")
                         }}
                     />
                     <small className='hidden text-error'></small>
