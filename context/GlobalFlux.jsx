@@ -24,10 +24,17 @@ const getState = ({ getStore, getActions, setStore }) => {
 
                 const { cart } = getStore();
 
-                let productsOnCart = cart.filter((item) => item.product_id == product.product_id)
+                let productsOnCart = cart
 
-                if (productsOnCart.length == 0) {
+                if (productsOnCart != null) {
+                    productsOnCart = cart.filter((item) => item.product_id == product.product_id)
+                }
+
+                if (productsOnCart == null) {
                     //Seteo en el carrito el producto
+                    setStore({ cart: [product] })
+                    toast.success(`${product.title} agregado al carrito`, { autoClose: 1500, transition: Flip })
+                } else if (productsOnCart.length == 0) {
                     setStore({ cart: cart.concat(product) })
                     toast.success(`${product.title} agregado al carrito`, { autoClose: 1500, transition: Flip })
                 } else {
