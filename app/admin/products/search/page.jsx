@@ -175,7 +175,7 @@ const adminProductsSearch = () => {
                                     foundedProduct?.images.map((image) => {
                                         return (
 
-                                            <img className="object-contain max-w-[400px] max-h-[250px]" src={image.src_imagen} alt="" />
+                                            <img className="object-contain max-w-[400px] max-h-[250px]" src={image.image_src} alt="" />
 
                                         )
                                     })
