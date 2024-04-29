@@ -1,6 +1,5 @@
 'use client'
 import React from 'react'
-import IsAdmin from '@/components/IsAdmin'
 import NavLink from '@/components/NavLink'
 
 
@@ -31,4 +30,4 @@ const ProductLayout = ({ children }) => {
     )
 }
 
-export default IsAdmin(ProductLayout)
+export default ProductLayout
