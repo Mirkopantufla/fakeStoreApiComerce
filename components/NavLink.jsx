@@ -12,11 +12,11 @@ const NavLink = ({ href, text, classes }) => {
 
     //Toma la ultima posición del href definido en el link, y lo almacena en lastPosition
     let lastPosition = href.split("/")
-    lastPosition = lastPosition.pop()
+    lastPosition = lastPosition[lastPosition.length - 1]
 
     // Comparo ambos dos arrays que contienen las rutas 
     // Si existe en el array path alguno la ultima posicion almacenada en lastPosition, significa que estamos dentro de este enlace.
-    const isActive = auxPathArray.includes(lastPosition);
+    let isActive = auxPathArray.includes(lastPosition);
 
     return (
         <Link className={`${classes} ${isActive ? activeClasses : inactiveClasses}`} href={href}>{text}</Link>
