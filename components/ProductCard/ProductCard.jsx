@@ -28,7 +28,7 @@ export const ProductCard = ({ product }) => {
                 </figure>
                 <div className="flex flex-col p-5 gap-4 h-56">
                     <h3 className="text-2xl font-bold truncate text-center">{product ? product.title : null}</h3>
-                    <p className='line-clamp-5'>{product ? product.description : null}</p>
+                    <p className='line-clamp-5 whitespace-pre-line'>{product ? product.description : null}</p>
                 </div>
             </Link>
             <div className="flex items-center justify-between px-7 pt-3">
