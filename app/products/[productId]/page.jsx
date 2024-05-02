@@ -51,8 +51,7 @@ const ProductDisplay = async ({ params }) => {
                         <progress className="progress progress-primary w-56" value={(data?.product?.rating * 10) * 2} max="100"></progress>
                     </div>
 
-                    <p className='border-2 p-10 my-4 rounded-xl border-neutral'>
-                        {/* <h1 className='text-center text-3xl font-bold mb-2'>Descripción</h1> */}
+                    <p className='border-2 p-10 my-4 rounded-xl border-neutral whitespace-pre-line'>
                         {data?.product?.description}
                     </p>
 
