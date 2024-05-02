@@ -10,8 +10,11 @@ const page = () => {
     const { store } = useContext(GlobalContext);
     const [isLoading, setIsLoading] = useState(false);
     const [productToDelete, setProductToDelete] = useState(null)
+    const [imageModal, setImageModal] = useState("");
 
-    const deleteProduct = async (id) => {
+    const deleteProduct = async (e, id) => {
+        e.preventDefault()
+
         try {
             setIsLoading(true)
 
@@ -63,7 +66,17 @@ const page = () => {
                                         <td>{producto.rating}</td>
                                         <td className='flex'>
                                             {
-                                                producto.images.map((image) => <img key={image.id} src={image.image_src} className='w-[40px] h-[40px]'></img>)
+                                                producto.images.map((image) =>
+                                                    <img
+                                                        key={image.image_id}
+                                                        src={image.image_src}
+                                                        className='cursor-pointer w-[40px] h-[40px] p-1'
+                                                        onClick={() => (
+                                                            document.getElementById('image_viewer_modal').showModal(),
+                                                            setImageModal(image.image_src)
+                                                        )}>
+                                                    </img>
+                                                )
                                             }
                                         </td>
                                         <td>
@@ -73,7 +86,7 @@ const page = () => {
                                                     setProductToDelete(producto.product_id),
                                                     document.getElementById('confirmation_modal').showModal()
                                                 )}>
-                                                <MdDelete className='text-3xl' />
+                                                <MdDelete className='text-xl' />
                                             </button>
                                         </td>
                                     </tr>
@@ -83,6 +96,8 @@ const page = () => {
                     </tbody>
                 </table>
             </div>
+
+            {/* MODAL PARA LA CONFIRMACION DE  */}
             <dialog id="confirmation_modal" className="modal modal-bottom sm:modal-middle">
                 <div className="modal-box">
                     <h3 className="font-bold text-lg">WARNING</h3>
@@ -93,7 +108,7 @@ const page = () => {
                             <button
                                 disabled={store.isLoading}
                                 className='btn btn-error disabled:opacity-75'
-                                onClick={() => deleteProduct(productToDelete)}
+                                onClick={(e) => deleteProduct(e, productToDelete)}
                             >
                                 {isLoading ?
                                     <span className="loading loading-spinner loading-lg text-neutral"></span>
@@ -104,6 +119,19 @@ const page = () => {
                         </form>
                     </div>
                 </div>
+            </dialog>
+
+            {/* MODAL PARA VER IMAGENES MAS GRANDES */}
+            <dialog id="image_viewer_modal" className="modal">
+                <div className="modal-box">
+                    <div className='flex justify-center'>
+                        <img src={imageModal} alt="" />
+                    </div>
+                    <p className="py-4 text-center">Press ESC key or click outside to close</p>
+                </div>
+                <form method="dialog" className="modal-backdrop">
+                    <button>close</button>
+                </form>
             </dialog>
         </>
     )
